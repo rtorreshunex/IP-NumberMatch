@@ -7,7 +7,7 @@
 
 #include "pr_tadTablero.h"
 
-void pr_crearTablero() {
+/*void pr_crearTablero() {
     cout << "Inicio pruebas crearTablero" << endl;
     int fil = 9;
     int col = 5;
@@ -29,8 +29,10 @@ void pr_crearTablero() {
             if(obtenerNumCelda(t.vTablero[i][j]) > 0)
                 cout << "Número en celda [" + to_string(i) + "][" + to_string(j) + "] fuera de rango" << endl;
 
+    //HACER 1 O 2 EJEMPLOS MÁS
+
     cout << "Fin pruebas crearTablero" << endl;
-}
+}*/
 
 void pr_vaciarCelda() {
     cout << "Inicio pruebas vaciarCelda" << endl;
@@ -38,7 +40,7 @@ void pr_vaciarCelda() {
     int col = 5;
     int filIni = 4;
     Tablero t;
-    crearTablero(t, fil, col, filIni);
+    //crearTablero(t, fil, col, filIni);
 
     fil = 3;
     col = 0;
@@ -55,6 +57,9 @@ void pr_vaciarCelda() {
     vaciarCelda(t, fil, col);
     if(!esVaciaCelda(t.vTablero[fil][col]))
         cout << "Celda [" + to_string(fil) + "][" + to_string(col) + "] no vacía" << endl;
+
+    //HACER 1 O 2 EJEMPLOS MÁS
+
     cout << "Fin pruebas vaciarCelda" << endl;
 }
 
@@ -64,7 +69,7 @@ void pr_borrarCelda() {
     int col = 5;
     int filIni = 4;
     Tablero t;
-    crearTablero(t, fil, col, filIni);
+    //crearTablero(t, fil, col, filIni);
 
     fil = 3;
     col = 0;
@@ -91,7 +96,7 @@ void pr_obtenerNum() {
     int col = 5;
     int filIni = 4;
     Tablero t;
-    crearTablero(t, fil, col, filIni);
+    //crearTablero(t, fil, col, filIni);
 
     fil = 3;
     col = 0;
@@ -120,7 +125,7 @@ void pr_estaVacia() {
     int col = 5;
     int filIni = 4;
     Tablero t;
-    crearTablero(t, fil, col, filIni);
+    //crearTablero(t, fil, col, filIni);
 
     fil = 3;
     col = 0;
@@ -146,7 +151,7 @@ void pr_estaBorrada() {
     int col = 5;
     int filIni = 4;
     Tablero t;
-    crearTablero(t, fil, col, filIni);
+   // crearTablero(t, fil, col, filIni);
 
     fil = 3;
     col = 0;
@@ -168,7 +173,7 @@ void pr_estaBorrada() {
 
 void pruebasTablero() {
     cout << "Inicio pruebas Tablero" << endl;
-    pr_crearTablero();
+  //  pr_crearTablero();
     pr_vaciarCelda();
     pr_borrarCelda();
     pr_obtenerNum();

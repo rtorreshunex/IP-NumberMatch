@@ -73,7 +73,6 @@ bool esBorradaCelda (Celda c);
  * DESCRIPCIÓN:
  * COMPL: O (1)
  */
-
 bool sonPareja (Celda c1, Celda c2);
 
 /*

@@ -140,6 +140,7 @@ void pr_sonPareja() {
 	cout << "Fin pruebas sonPareja: " << endl;
 }
 
+
 void pruebasCelda() {
 	cout << "Inicio pruebas celda: "<<endl;
 	pr_crearCelda();

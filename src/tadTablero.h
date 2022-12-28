@@ -21,21 +21,40 @@ struct Tablero {
 	int n_columnas;
 	int filas_iniciales;
 	int num_seleccionadas;
+	int fil_ult;
+	int col_ult;
+	int celdas_utiles;
 };
 
 /*
  * PRE: {1 <= filas <= 12; 1 <= columnas <= 9; filasIniciales <= filas;
  * 		t debe estar correctamente inicializada}
- * POST: {}
+ * POST:
  * DESCRIPCIÓN: Crea un tablero de dimensión filas * columnas en el que las primeras filas (filasIniciales) contienen
  * números (con valores entre 1 y 9) generados aleatoriamente. El resto de las filas están vacías.
  * COMPL: O (n²)
  */
-void crearTablero (Tablero &t, int filas, int columnas, int filasIniciales);
+void crearTablero (Tablero &t, int filas, int columnas, int filasIniciales,int celdasUtiles, int filUlt, int colUlt);
 
 /*
  * PRE: {t debe estar correctamente inicializada.}
- * POST: {}
+ * POST:
+ * DECRIPCIÓN: Devuelve el número de filas y de columnas
+ * COMPL: O (1)
+ */
+void devolverNumFilasYCol (Tablero t, int &filas, int &columnas);
+
+/*
+ * PRE: {t debe estar correctamente inicializada.}
+ * POST:
+ * DECRIPCIÓN: Devuelve las coordenadas de la última celda ocupada.
+ * COMPL: O (1)
+ */
+void devolverCoordenadasCeldaOcup (Tablero t, int &filas, int &columnas);
+
+/*
+ * PRE: {t debe estar correctamente inicializada.}
+ * POST:
  * DESCRIPCIÓN: Vacía la celda del tablero que ocupa la posición (fila, col).
  * COMPL: O (1)
  */
@@ -43,7 +62,7 @@ void vaciarCelda (Tablero &t, int fila, int col);
 
 /*
  * PRE: {t debe estar correctamente inicializada.}
- * POST: {}
+ * POST:
  * DESCRIPCIÓN: Marca como borrada la celda del tablero que ocupa la posición (fila, col).
  * COMPL: O (1)
  */
@@ -56,6 +75,14 @@ void borrarCelda (Tablero &t, int fila, int col);
  * COMPL: O (1)
  */
 int obtenerNum (Tablero t, int fila, int col);
+
+/*
+ * PRE: {t debe estar correctamente inicializada.}
+ * POST:
+ * DESCRIPCIÓN: Pone un valor en una celda concreta del tablero.
+ * COMPL: O (1)
+ */
+void ponerValorCeldaConc(Tablero &t, int num, int fila, int col);
 
 /*
  * PRE: {t debe estar correctamente inicializada.}
@@ -75,7 +102,21 @@ bool estaVacia (Tablero t, int fila, int col);
  */
 bool estaBorrada (Tablero t, int fila, int col);
 
+/*
+ * PRE: {}
+ * POST: {}
+ * DESCRIPCIÓN:
+ * COMPL: O ()
+ */
+bool estaBorradaFila(Tablero t, int fila);
 
+/*
+ * PRE:
+ * POST:
+ * DESCRIPCIÓN:
+ * COMPL: O ()
+ */
+void borrarInfoFila(Tablero &t);
 
 
 #endif /* TADTABLERO_H_ */
