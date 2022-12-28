@@ -7,13 +7,13 @@ CPP_SRCS += \
 ../src/NumberMatchBase.cpp \
 ../src/entorno.cpp 
 
-CPP_DEPS += \
-./src/NumberMatchBase.d \
-./src/entorno.d 
-
 OBJS += \
 ./src/NumberMatchBase.o \
 ./src/entorno.o 
+
+CPP_DEPS += \
+./src/NumberMatchBase.d \
+./src/entorno.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
@@ -24,11 +24,4 @@ src/%.o: ../src/%.cpp src/subdir.mk
 	@echo 'Finished building: $<'
 	@echo ' '
 
-
-clean: clean-src
-
-clean-src:
-	-$(RM) ./src/NumberMatchBase.d ./src/NumberMatchBase.o ./src/entorno.d ./src/entorno.o
-
-.PHONY: clean-src
 
