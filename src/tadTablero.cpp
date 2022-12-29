@@ -68,7 +68,7 @@ bool estaBorrada(Tablero t, int fila, int col) {
 	return esBorradaCelda(t.vTablero[fila][col]);
 }
 
-bool estaBorradaFila(Tablero t, int fila, int col){
+bool estaBorradaFila(Tablero t, int fila){
 	bool borrada = false;
 
 	for(int i = 0; i < t.n_columnas; i++){
@@ -77,5 +77,23 @@ bool estaBorradaFila(Tablero t, int fila, int col){
 		}
 	}
 	return borrada;
+}
+
+void borrarInfoFila(Tablero &t, int fila){
+	for (int i = 0; i< t.n_columnas; i++){
+		if(!estaBorrada(t,fila,i))
+			borrarNumCelda(t.vTablero[fila][i]);
+	}
+}
+
+void replCeldNoBorr(Tablero &t){
+
+	for (int i = 0; i < t.n_filas; i++){
+		for (int j = 0; j < t.n_columnas; j++){
+			if(!estaBorrada(t,i,j));
+
+		}
+	}
+
 }
 

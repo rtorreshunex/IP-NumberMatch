@@ -103,20 +103,28 @@ bool estaVacia (Tablero t, int fila, int col);
 bool estaBorrada (Tablero t, int fila, int col);
 
 /*
- * PRE: {}
- * POST: {}
- * DESCRIPCIÓN:
- * COMPL: O ()
+ * PRE: {t debe estar correctamente inicializada.}
+ * POST: {Devuelve true si la fila tiene todas sus celdas borradas, false en caso contrario.}
+ * DESCRIPCIÓN: Comprueba si una fila tiene todas sus celdas borradas.
+ * COMPL: O (n)
  */
 bool estaBorradaFila(Tablero t, int fila);
 
 /*
- * PRE:
+ * PRE: {t debe estar correctamente inicializada.}
  * POST:
- * DESCRIPCIÓN:
+ * DESCRIPCIÓN: Borra la información de una fila.
+ * COMPL: O (n)
+ */
+void borrarInfoFila(Tablero &t, int fila);
+
+/*
+ * PRE: {t debe estar correctamente inicializada.}
+ * POST:
+ * DESCRIPCIÓN: Replica las celdas no borradas em el tablero
  * COMPL: O ()
  */
-void borrarInfoFila(Tablero &t);
+void replCeldNoBorr(Tablero &t);
 
 
 #endif /* TADTABLERO_H_ */
