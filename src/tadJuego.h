@@ -10,6 +10,7 @@
 
 #include <iostream>
 #include "tadTablero.h"
+#include "entorno.h"
 using namespace std;
 
 struct tadJuego {
@@ -32,7 +33,7 @@ void iniciar();
  * DESCRIPCIÓN: Realiza la gestión general del juego (gestionar las teclas que se pulsen, actualizar el tablero y la pantalla, dar el juego por finalizado, etc.)
  * COMPL:
  */
-void jugar();
+void jugar(int fila, int col, int numColumnas, int numFilas, int filasIniciales);
 
 /*
  * PRE: {}
