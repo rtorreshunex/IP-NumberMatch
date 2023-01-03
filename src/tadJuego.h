@@ -2,7 +2,7 @@
  * tadJuego.h
  *
  *  Created on: Dec 28, 2022
- *      Author: ruben
+ *      Author: Rubén Torres Gutiérrez y Paula Jiménez Cruz
  */
 
 #ifndef TADJUEGO_H_
@@ -33,7 +33,15 @@ void iniciar();
  * DESCRIPCIÓN: Realiza la gestión general del juego (gestionar las teclas que se pulsen, actualizar el tablero y la pantalla, dar el juego por finalizado, etc.)
  * COMPL:
  */
-void jugar(int fila, int col, int numColumnas, int numFilas, int filasIniciales);
+void jugar(Tablero t, int fila, int col, int numColumnas, int numFilas, int filasIniciales, int maxReplicas, int maxAyudas);
+
+/*
+ * PRE: {}
+ * POST: {}
+ * DESCRIPCIÓN: Comprueba que dos celdas dadas pueden ser emparejadas
+ * COMPL:
+ */
+void comprobarEmparejamiento(int fila1, int col1, int fila2, int col2);
 
 /*
  * PRE: {}

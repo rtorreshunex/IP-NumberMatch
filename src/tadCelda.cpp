@@ -13,6 +13,7 @@ void crearCelda(Celda &c, int num) {
 	c.numero = num;
 	c.borradaCelda = false;
 	c.celdaVacia = false;
+	c.celdaSeleccionada = false;
 }
 
 void crearCeldaVacia(Celda &c) {
@@ -21,6 +22,14 @@ void crearCeldaVacia(Celda &c) {
 
 void borrarNumCelda(Celda &c) {
 	c.borradaCelda = true;
+}
+
+void seleccionarCelda(Celda &c){
+	c.celdaSeleccionada = true;
+}
+
+void deseleccionarCelda(Celda &c){
+	c.celdaSeleccionada = false;
 }
 
 int obtenerNumCelda(Celda c) {
@@ -33,6 +42,10 @@ bool esVaciaCelda(Celda c) {
 
 bool esBorradaCelda(Celda c) {
 	return c.borradaCelda;
+}
+
+bool esSeleccionadaCelda(Celda c){
+	return c.celdaSeleccionada;
 }
 
 bool sonPareja(Celda c1, Celda c2) {

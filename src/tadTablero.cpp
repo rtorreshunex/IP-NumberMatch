@@ -52,6 +52,14 @@ void borrarCelda(Tablero &t, int fila, int col) {
 	borrarNumCelda(t.vTablero[fila][col]);
 }
 
+void seleccionarCelda(Tablero &t, int fila, int col){
+	seleccionarCelda(t.vTablero[fila][col]);
+}
+
+void deseleccionarCelda(Tablero &t, int fila, int col){
+	deseleccionarCelda(t.vTablero[fila][col]);
+}
+
 int obtenerNum(Tablero t, int fila, int col) {
 	return obtenerNumCelda(t.vTablero[fila][col]);
 }
@@ -66,6 +74,10 @@ bool estaVacia(Tablero t, int fila, int col) {
 
 bool estaBorrada(Tablero t, int fila, int col) {
 	return esBorradaCelda(t.vTablero[fila][col]);
+}
+
+bool estaSeleccionada(Tablero t, int fila, int col){
+	return esSeleccionadaCelda(t.vTablero[fila][col]);
 }
 
 bool estaBorradaFila(Tablero t, int fila){

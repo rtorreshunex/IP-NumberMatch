@@ -70,6 +70,22 @@ void borrarCelda (Tablero &t, int fila, int col);
 
 /*
  * PRE: {t debe estar correctamente inicializada.}
+ * POST:
+ * DESCRIPCIÓN: Marca como seleccionada la celda del tablero que ocupa la posición (fila, col).
+ * COMPL: O (1)
+ */
+void seleccionarCelda(Tablero &t, int fila, int col);
+
+/*
+ * PRE: {t debe estar correctamente inicializada.}
+ * POST:
+ * DESCRIPCIÓN: Marca como NO seleccionada la celda del tablero que ocupa la posición (fila, col).
+ * COMPL: O (1)
+ */
+void deseleccionarCelda(Tablero &t, int fila, int col);
+
+/*
+ * PRE: {t debe estar correctamente inicializada.}
  * POST: {Devuelve el número almacenado en la celda del tablero que ocupa la posición (fila, col).}
  * DESCRIPCIÓN:
  * COMPL: O (1)
@@ -101,6 +117,15 @@ bool estaVacia (Tablero t, int fila, int col);
  * COMPL: O (1)
  */
 bool estaBorrada (Tablero t, int fila, int col);
+
+/*
+ * PRE: {t debe estar correctamente inicializada.}
+ * POST: {Devuelve true si la celda del tablero que ocupa la posición (fila, col) esá
+		  seleccionada y false si no lo está}
+ * DESCRIPCIÓN:
+ * COMPL: O (1)
+ */
+bool estaSeleccionada(Tablero t, int fila, int col);
 
 /*
  * PRE: {t debe estar correctamente inicializada.}

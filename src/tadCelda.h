@@ -15,6 +15,7 @@ struct Celda {
 	int numero;
 	bool celdaVacia;
 	bool borradaCelda;
+	bool celdaSeleccionada;
 
 };
 
@@ -44,6 +45,22 @@ void borrarNumCelda(Celda &c);
 
 /*
  * PRE: {c debe estar correctamente inicializada.}
+ * POST: {}
+ * DESCRIPCIÓN: Marca cómo “seleccionada” la celda
+ * COMPL: O (1)
+ */
+void seleccionarCelda(Celda &c);
+
+/*
+ * PRE: {c debe estar correctamente inicializada.}
+ * POST: {}
+ * DESCRIPCIÓN: Marca cómo NO “seleccionada” la celda
+ * COMPL: O (1)
+ */
+void deseleccionarCelda(Celda &c);
+
+/*
+ * PRE: {c debe estar correctamente inicializada.}
  * POST: {Devuelve el número almacenado en la celda c}
  * DESCRIPCIÓN:
  * COMPL: O (1)
@@ -65,6 +82,14 @@ bool esVaciaCelda (Celda c);
  * COMPL: O (1)
  */
 bool esBorradaCelda (Celda c);
+
+/*
+ * PRE: {c debe estar correctamente inicializada.}
+ * POST: {Devuelve true si la celda está seleccionada y false si no lo está}
+ * DESCRIPCIÓN:
+ * COMPL: O (1)
+ */
+bool esSeleccionadaCelda(Celda c);
 
 /*
  * PRE: {c debe estar correctamente inicializada.}

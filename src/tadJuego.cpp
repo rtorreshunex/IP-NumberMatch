@@ -2,7 +2,7 @@
  * tadJuego.cpp
  *
  *  Created on: Dec 28, 2022
- *      Author: ruben
+ *      Author: Rubén Torres Gutiérrez y Paula Jiménez Cruz
  */
 
 #include <iostream>
@@ -12,6 +12,7 @@ using namespace std;
 void iniciar(){
 	int fil, col, filas_iniciales, maxReplicas, maxAyudas, deDonde;
 	int m[MAX_FILAS][MAX_COLUMNAS];
+	Tablero t;
 
 	if(entornoCargarConfiguracion(fil, col, filas_iniciales, maxReplicas, maxAyudas, deDonde, m)){
 		entornoIniciar(fil, col);
@@ -19,16 +20,20 @@ void iniciar(){
 		int fila, columna;
 		for ( fila = 0; fila < fil; fila++) {
 			for ( columna = 0; columna < col; columna++) {
-				if (fila % 2 ==0)
+				ponerValorCeldaConc(t, m[fila][columna], fila, columna);
+				if (fila < filas_iniciales){
 					entornoActivarNumero(fila, columna, m[fila][columna]);
-				else entornoDesactivarNumero(fila, columna, m[fila][columna]);
+				}else{
+					entornoPonerVacio(fila, columna);
+					vaciarCelda(t, fila, columna);
+				}
 			}
 		}
-		jugar(fila, columna, col, fil, filas_iniciales);
+		jugar(t, fila, columna, col, fil, filas_iniciales, maxReplicas, maxAyudas);
 	}
 }
 
-void jugar(int fila, int col, int numColumnas, int numFilas, int filasIniciales){
+void jugar(Tablero t, int fila, int col, int numColumnas, int numFilas, int filasIniciales, int maxReplicas, int maxAyudas){
 	bool salir = false; //bandera utilizada para finalizar el bucle
 	TipoTecla tecla;    //almacena la tecla pulsada por el usuario
 	int puntos = 0;
@@ -45,9 +50,13 @@ void jugar(int fila, int col, int numColumnas, int numFilas, int filasIniciales)
 		tecla = entornoLeerTecla();
 		switch (tecla) {
 		case TEnter:
-			entornoSeleccionarPosicion(fila,col);
-			entornoPausa (0.5);
-			entornoDeseleccionarPosicion (fila,col);
+			if(!estaVacia(t, fila, col) && !estaBorrada(t, fila, col) && !estaSeleccionada(t, fila, col)){
+				seleccionarCelda(t, fila, col);
+				entornoSeleccionarPosicion(fila,col);
+			}else{
+				deseleccionarCelda(t, fila, col);
+				entornoDeseleccionarPosicion (fila,col);
+			}
 			break;
 		case TDerecha:
 			entornoDesmarcarPosicion(fila, col);
@@ -83,15 +92,20 @@ void jugar(int fila, int col, int numColumnas, int numFilas, int filasIniciales)
 			break;
 
 		case TF1:
-			puntos = puntos + 10;
-			entornoPonerPuntuacion(puntos,10);
+			if(maxReplicas > 0){
+				maxReplicas--;
+				puntos += 10;
+				entornoPonerPuntuacion(puntos,10);
+			} else entornoMostrarMensaje("No quedan más réplicas", 0.5);
 			break;
 		case TF2:
-			for (int i = 0; i < filasIniciales; i++) {
-
-						entornoPonerVacio(i,i);
-						entornoPausa(0.5);
-					}
+			if(maxAyudas > 0){
+				maxAyudas--;
+				for (int i = 0; i < filasIniciales; i++) {
+					entornoPonerVacio(i,i);
+					entornoPausa(0.5);
+				}
+			} else entornoMostrarMensaje("No quedan más ayudas", 0.5);
 			break;
 		case TSalir:
 			salir = true;
@@ -102,6 +116,10 @@ void jugar(int fila, int col, int numColumnas, int numFilas, int filasIniciales)
 		} //Fin de switch
 	}//Fin de while
 	terminar();
+}
+
+void comprobarEmparejamiento(int fila1, int col1, int fila2, int col2){
+
 }
 
 void terminar(){
