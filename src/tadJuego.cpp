@@ -138,6 +138,12 @@ void funcionamientoEnter(tadJuego &j, int fila, int col){
 				entornoDesactivarNumero(j.fSelec, j.cSelec, obtenerNum(j.tablero, j.fSelec, j.cSelec));
 				j.puntuacion += 1;
 				entornoPonerPuntuacion(j.puntuacion,1);
+				if(estaBorradaFila(j.tablero, fila)){
+					borrarInfoFila(j.tablero, fila);
+				}
+				if(estaBorradaFila(j.tablero, j.fSelec)){
+					borrarInfoFila(j.tablero, j.fSelec);
+				}
 			}else
 				entornoPausa(0.5);
 			j.celdaSelec = false;

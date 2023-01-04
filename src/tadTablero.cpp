@@ -66,11 +66,11 @@ bool estaSeleccionada(Tablero t, int fila, int col){
 }
 
 bool estaBorradaFila(Tablero t, int fila){
-	bool borrada = false;
+	bool borrada = true;
 
 	for(int i = 0; i < t.n_columnas; i++){
-		if(estaBorrada(t, fila, i)){
-			borrada = true;
+		if(!estaBorrada(t, fila, i)){
+			borrada = false;
 		}
 	}
 	return borrada;
