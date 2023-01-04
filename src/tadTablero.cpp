@@ -17,21 +17,6 @@ void crearTablero(Tablero &t, int filas, int columnas, int filasIniciales, int c
 	t.celdas_utiles = celdasUtiles;
 	t.col_ult = colUlt;
 	t.fil_ult = filUlt;
-	for (int i = 0; i < filas; i++){
-		if(i<filasIniciales)
-			for (int j = 0; j < columnas; j++){
-				crearCelda(t.vTablero[i][j], rand() % 9 + 1);
-			}
-		else
-			for (int j = 0; j < columnas; j++){
-				crearCeldaVacia(t.vTablero[i][j]);
-			}
-	}
-//	for(int i=0;i<filas;i++){
-//		for(int j=0;j<columnas;j++)
-//			cout << to_string(obtenerNumCelda(t.vTablero[i][j])) + " ";
-//		cout << endl;
-//	}
 }
 
 void vaciarCelda(Tablero &t, int fila, int col) {
@@ -112,10 +97,14 @@ void replCeldNoBorr(Tablero &t){
 bool sonParejaCeldas(Tablero t, int fila1, int col1, int fila2, int col2){
 
 	bool pareja = false;
-	if((fila1 + 1 == fila2 && (col1 == col2 || col1 + 1 == col2 || col1 - 1 == col2)) ||
-		(fila1 - 1 == fila2 && (col1 == col2 || col1 + 1 == col2 || col1 - 1 == col2)) ||
-		(col1 + 1 == col2 && (fila1 == fila2 || fila1 + 1 == fila2 || fila1 - 1 == fila2)) ||
-		(col1 - 1 == col2 && (fila1 == fila2 || fila1 + 1 == fila2 || fila1 - 1 == fila2))
+	if((fila1 + 1 == fila2 && (col1 == col2 || col1 + 1 == col2 || col1 - 1 == col2)) || // Fila de abajo pegada arriba o en diagonal por arriba
+		(fila1 - 1 == fila2 && (col1 == col2 || col1 + 1 == col2 || col1 - 1 == col2)) || // Fila de arriba pegada abajo o en diagonal por abajo
+		(col1 + 1 == col2 && (fila1 == fila2 || fila1 + 1 == fila2 || fila1 - 1 == fila2)) || // Columna de la derecha pegada a la izquierda o en diagonal por la izquierda
+		(col1 - 1 == col2 && (fila1 == fila2 || fila1 + 1 == fila2 || fila1 - 1 == fila2)) || // Columna de la izquierda pegada a la derecha o en diagonal por la derecha
+		(fila1 == fila2 && ((col1 == 0 && col2 == t.col_ult) || (col1 == t.col_ult && col2 == 0))) || // Misma fila pegada por los extremos
+		(col1 == col2 && ((fila1 == 0 && fila2 == t.fil_ult) || (fila1 == t.fil_ult && fila2 == 0))) || // Misma columna pegada por los extremos
+		((fila1 == 0 && col1 == 0) && (fila2 == t.fil_ult && col2 == t.col_ult)) || // Esquina superior izquierda pegada a esquina inferior derecha
+		((fila1 == 0 && col1 == t.col_ult) && ((fila2 == t.fil_ult && col2 == 0))) // Esquina superior derecha pegada a esquina inferior izquierda
 		) pareja = sonPareja(t.vTablero[fila1][col1], t.vTablero[fila2][col2]);
 	return pareja;
 

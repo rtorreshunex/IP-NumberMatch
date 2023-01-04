@@ -15,6 +15,8 @@ void iniciar(){
 	tadJuego j;
 	j.puntuacion = 0;
 	j.celdaSelec = false;
+	int celdasUtiles = 0;
+	int filUlt, colUlt;
 
 	if(entornoCargarConfiguracion(fil, col, filas_iniciales, maxReplicas, maxAyudas, deDonde, m)){
 		entornoIniciar(fil, col);
@@ -25,12 +27,18 @@ void iniciar(){
 				ponerValorCeldaConc(j.tablero, m[fila][columna], fila, columna);
 				if (fila < filas_iniciales){
 					entornoActivarNumero(fila, columna, m[fila][columna]);
+					celdasUtiles++;
 				}else{
 					entornoPonerVacio(fila, columna);
 					vaciarCelda(j.tablero, fila, columna);
 				}
+				if(fila + 1 == filas_iniciales && columna + 1 == col){
+					filUlt = fila;
+					colUlt = columna;
+				}
 			}
 		}
+		crearTablero(j.tablero, fil, col, filas_iniciales, celdasUtiles, filUlt, colUlt);
 		jugar(j, fila, columna, col, fil, filas_iniciales, maxReplicas, maxAyudas);
 	}
 }
@@ -124,7 +132,9 @@ void funcionamientoEnter(tadJuego &j, int fila, int col){
 			j.celdaSelec = true;
 		} else{
 			if(sonParejaCeldas(j.tablero, fila, col, j.fSelec, j.cSelec)){
+				borrarCelda(j.tablero, fila, col);
 				entornoDesactivarNumero(fila, col, obtenerNum(j.tablero, fila, col));
+				borrarCelda(j.tablero, j.fSelec, j.cSelec);
 				entornoDesactivarNumero(j.fSelec, j.cSelec, obtenerNum(j.tablero, j.fSelec, j.cSelec));
 				j.puntuacion += 1;
 				entornoPonerPuntuacion(j.puntuacion,1);
