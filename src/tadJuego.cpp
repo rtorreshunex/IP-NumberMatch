@@ -12,7 +12,9 @@ using namespace std;
 void iniciar(){
 	int fil, col, filas_iniciales, maxReplicas, maxAyudas, deDonde;
 	int m[MAX_FILAS][MAX_COLUMNAS];
-	Tablero t;
+	tadJuego j;
+	j.puntuacion = 0;
+	j.celdaSelec = false;
 
 	if(entornoCargarConfiguracion(fil, col, filas_iniciales, maxReplicas, maxAyudas, deDonde, m)){
 		entornoIniciar(fil, col);
@@ -20,28 +22,27 @@ void iniciar(){
 		int fila, columna;
 		for ( fila = 0; fila < fil; fila++) {
 			for ( columna = 0; columna < col; columna++) {
-				ponerValorCeldaConc(t, m[fila][columna], fila, columna);
+				ponerValorCeldaConc(j.tablero, m[fila][columna], fila, columna);
 				if (fila < filas_iniciales){
 					entornoActivarNumero(fila, columna, m[fila][columna]);
 				}else{
 					entornoPonerVacio(fila, columna);
-					vaciarCelda(t, fila, columna);
+					vaciarCelda(j.tablero, fila, columna);
 				}
 			}
 		}
-		jugar(t, fila, columna, col, fil, filas_iniciales, maxReplicas, maxAyudas);
+		jugar(j, fila, columna, col, fil, filas_iniciales, maxReplicas, maxAyudas);
 	}
 }
 
-void jugar(Tablero t, int fila, int col, int numColumnas, int numFilas, int filasIniciales, int maxReplicas, int maxAyudas){
+void jugar(tadJuego &j, int fila, int col, int numColumnas, int numFilas, int filasIniciales, int maxReplicas, int maxAyudas){
 	bool salir = false; //bandera utilizada para finalizar el bucle
 	TipoTecla tecla;    //almacena la tecla pulsada por el usuario
-	int puntos = 0;
 
 	fila = 0;
 	col  = 0;
 	entornoMarcarPosicion(fila,col);
-	entornoPonerPuntuacion (puntos,0);
+	entornoPonerPuntuacion (j.puntuacion,0);
 	entornoMostrarMensaje("Pulsa ESC para salir",1.5);
 	entornoMostrarMensaje("Pulsa F1 para aumentar puntuacion",1.5);
 	entornoMostrarMensaje("Pulsa F2 para eliminar algunos números",1.5);
@@ -50,13 +51,7 @@ void jugar(Tablero t, int fila, int col, int numColumnas, int numFilas, int fila
 		tecla = entornoLeerTecla();
 		switch (tecla) {
 		case TEnter:
-			if(!estaVacia(t, fila, col) && !estaBorrada(t, fila, col) && !estaSeleccionada(t, fila, col)){
-				seleccionarCelda(t, fila, col);
-				entornoSeleccionarPosicion(fila,col);
-			}else{
-				deseleccionarCelda(t, fila, col);
-				entornoDeseleccionarPosicion (fila,col);
-			}
+			funcionamientoEnter(j, fila, col);
 			break;
 		case TDerecha:
 			entornoDesmarcarPosicion(fila, col);
@@ -94,8 +89,8 @@ void jugar(Tablero t, int fila, int col, int numColumnas, int numFilas, int fila
 		case TF1:
 			if(maxReplicas > 0){
 				maxReplicas--;
-				puntos += 10;
-				entornoPonerPuntuacion(puntos,10);
+				j.puntuacion += 10;
+				entornoPonerPuntuacion(j.puntuacion,10);
 			} else entornoMostrarMensaje("No quedan más réplicas", 0.5);
 			break;
 		case TF2:
@@ -118,7 +113,33 @@ void jugar(Tablero t, int fila, int col, int numColumnas, int numFilas, int fila
 	terminar();
 }
 
-void comprobarEmparejamiento(int fila1, int col1, int fila2, int col2){
+void funcionamientoEnter(tadJuego &j, int fila, int col){
+
+	if(!estaVacia(j.tablero, fila, col) && !estaBorrada(j.tablero, fila, col) && !estaSeleccionada(j.tablero, fila, col)){
+		seleccionarCelda(j.tablero, fila, col);
+		entornoSeleccionarPosicion(fila,col);
+		if(!j.celdaSelec){
+			j.fSelec = fila;
+			j.cSelec = col;
+			j.celdaSelec = true;
+		} else{
+			if(sonParejaCeldas(j.tablero, fila, col, j.fSelec, j.cSelec)){
+				entornoDesactivarNumero(fila, col, obtenerNum(j.tablero, fila, col));
+				entornoDesactivarNumero(j.fSelec, j.cSelec, obtenerNum(j.tablero, j.fSelec, j.cSelec));
+				j.puntuacion += 1;
+				entornoPonerPuntuacion(j.puntuacion,1);
+			}else
+				entornoPausa(0.5);
+			j.celdaSelec = false;
+			deseleccionarCelda(j.tablero, fila, col);
+			entornoDeseleccionarPosicion (fila,col);
+			deseleccionarCelda(j.tablero, j.fSelec, j.cSelec);
+			entornoDeseleccionarPosicion (j.fSelec, j.cSelec);
+		}
+	}else{
+		deseleccionarCelda(j.tablero, fila, col);
+		entornoDeseleccionarPosicion (fila,col);
+	}
 
 }
 

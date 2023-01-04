@@ -109,3 +109,15 @@ void replCeldNoBorr(Tablero &t){
 
 }
 
+bool sonParejaCeldas(Tablero t, int fila1, int col1, int fila2, int col2){
+
+	bool pareja = false;
+	if((fila1 + 1 == fila2 && (col1 == col2 || col1 + 1 == col2 || col1 - 1 == col2)) ||
+		(fila1 - 1 == fila2 && (col1 == col2 || col1 + 1 == col2 || col1 - 1 == col2)) ||
+		(col1 + 1 == col2 && (fila1 == fila2 || fila1 + 1 == fila2 || fila1 - 1 == fila2)) ||
+		(col1 - 1 == col2 && (fila1 == fila2 || fila1 + 1 == fila2 || fila1 - 1 == fila2))
+		) pareja = sonPareja(t.vTablero[fila1][col1], t.vTablero[fila2][col2]);
+	return pareja;
+
+}
+
