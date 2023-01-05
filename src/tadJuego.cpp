@@ -9,40 +9,6 @@
 #include "tadJuego.h"
 using namespace std;
 
-void iniciar(){
-	int fil, col, filas_iniciales, maxReplicas, maxAyudas, deDonde;
-	int m[MAX_FILAS][MAX_COLUMNAS];
-	tadJuego j;
-	j.puntuacion = 0;
-	j.celdaSelec = false;
-	int celdasUtiles = 0;
-	int filUlt, colUlt;
-
-	if(entornoCargarConfiguracion(fil, col, filas_iniciales, maxReplicas, maxAyudas, deDonde, m)){
-		entornoIniciar(fil, col);
-
-		int fila, columna;
-		for ( fila = 0; fila < fil; fila++) {
-			for ( columna = 0; columna < col; columna++) {
-				ponerValorCeldaConc(j.tablero, m[fila][columna], fila, columna);
-				if (fila < filas_iniciales){
-					entornoActivarNumero(fila, columna, m[fila][columna]);
-					celdasUtiles++;
-				}else{
-					entornoPonerVacio(fila, columna);
-					vaciarCelda(j.tablero, fila, columna);
-				}
-				if(fila + 1 == filas_iniciales && columna + 1 == col){
-					filUlt = fila;
-					colUlt = columna;
-				}
-			}
-		}
-		crearTablero(j.tablero, fil, col, filas_iniciales, celdasUtiles, filUlt, colUlt);
-		jugar(j, fila, columna, col, fil, filas_iniciales, maxReplicas, maxAyudas);
-	}
-}
-
 void jugar(tadJuego &j, int fila, int col, int numColumnas, int numFilas, int filasIniciales, int maxReplicas, int maxAyudas){
 	bool salir = false; //bandera utilizada para finalizar el bucle
 	TipoTecla tecla;    //almacena la tecla pulsada por el usuario
@@ -97,8 +63,7 @@ void jugar(tadJuego &j, int fila, int col, int numColumnas, int numFilas, int fi
 		case TF1:
 			if(maxReplicas > 0){
 				maxReplicas--;
-				j.puntuacion += 10;
-				entornoPonerPuntuacion(j.puntuacion,10);
+				funcionamientoReplicas(j);
 			} else entornoMostrarMensaje("No quedan más réplicas", 0.5);
 			break;
 		case TF2:
@@ -108,7 +73,7 @@ void jugar(tadJuego &j, int fila, int col, int numColumnas, int numFilas, int fi
 					entornoPonerVacio(i,i);
 					entornoPausa(0.5);
 				}
-			} else entornoMostrarMensaje("No quedan más ayudas", 0.5);
+			} else terminar("Réplicas agotadas");
 			break;
 		case TSalir:
 			salir = true;
@@ -118,7 +83,32 @@ void jugar(tadJuego &j, int fila, int col, int numColumnas, int numFilas, int fi
 			break;
 		} //Fin de switch
 	}//Fin de while
-	terminar();
+	terminar("Has abandonado");
+}
+
+void actualizarEntorno(tadJuego &j, int fil, int col, int fil_ult, int col_ult){
+	for ( int fila = 0; fila < fil; fila++) {
+		for ( int columna = 0; columna < col; columna++) {
+			if (fila < fil_ult || (fila == fil_ult && columna <= col_ult)){
+				entornoActivarNumero(fila, columna, obtenerNum(j.tablero, fila, columna));
+				if(estaBorrada(j.tablero, fila, columna))
+					entornoDesactivarNumero(fila, columna, obtenerNum(j.tablero, fila, columna));
+			}else
+				entornoPonerVacio(fila, columna);
+		}
+	}
+}
+
+void funcionamientoReplicas(tadJuego &j){
+	int fil, col, fil_ult, col_ult;
+	devolverNumFilasYCol(j.tablero, fil, col);
+	replCeldNoBorr(j.tablero);
+	if(obtenerCeldasUtiles(j.tablero) <= (fil * col)){
+		obtenerUltCelda(j.tablero, fil_ult, col_ult);
+		actualizarEntorno(j, fil, col, fil_ult, col_ult);
+	}
+	else
+		terminar("Los datos no caben");
 }
 
 void funcionamientoEnter(tadJuego &j, int fila, int col){
@@ -132,17 +122,26 @@ void funcionamientoEnter(tadJuego &j, int fila, int col){
 			j.celdaSelec = true;
 		} else{
 			if(sonParejaCeldas(j.tablero, fila, col, j.fSelec, j.cSelec)){
+				// Borrar las 2 celdas
 				borrarCelda(j.tablero, fila, col);
 				entornoDesactivarNumero(fila, col, obtenerNum(j.tablero, fila, col));
 				borrarCelda(j.tablero, j.fSelec, j.cSelec);
 				entornoDesactivarNumero(j.fSelec, j.cSelec, obtenerNum(j.tablero, j.fSelec, j.cSelec));
+				// Actualizar puntuación
 				j.puntuacion += 1;
 				entornoPonerPuntuacion(j.puntuacion,1);
+				// Actualizar celdas útiles
+				ponerCeldasUtiles(j.tablero, obtenerCeldasUtiles(j.tablero) - 2);
+				// Borrar filas
 				if(estaBorradaFila(j.tablero, fila)){
 					borrarInfoFila(j.tablero, fila);
+					j.puntuacion += 10;
+					entornoPonerPuntuacion(j.puntuacion,10);
 				}
 				if(estaBorradaFila(j.tablero, j.fSelec)){
 					borrarInfoFila(j.tablero, j.fSelec);
+					j.puntuacion += 10;
+					entornoPonerPuntuacion(j.puntuacion,10);
 				}
 			}else
 				entornoPausa(0.5);
@@ -159,7 +158,42 @@ void funcionamientoEnter(tadJuego &j, int fila, int col){
 
 }
 
-void terminar(){
-	entornoMostrarMensajeFin("¡¡¡¡Adios!!!!");
+void iniciar(){
+	int fil, col, filas_iniciales, maxReplicas, maxAyudas, deDonde;
+	int m[MAX_FILAS][MAX_COLUMNAS];
+	tadJuego j;
+	j.puntuacion = 0;
+	j.celdaSelec = false;
+	int celdasUtiles = 0;
+	int filUlt, colUlt;
+
+	if(entornoCargarConfiguracion(fil, col, filas_iniciales, maxReplicas, maxAyudas, deDonde, m)){
+		entornoIniciar(fil, col);
+
+		int fila, columna;
+		for ( fila = 0; fila < fil; fila++) {
+			for ( columna = 0; columna < col; columna++) {
+				if (fila < filas_iniciales){
+					ponerValorCeldaConc(j.tablero, m[fila][columna], fila, columna);
+					entornoActivarNumero(fila, columna, m[fila][columna]);
+					celdasUtiles++;
+				}else{
+					entornoPonerVacio(fila, columna);
+					vaciarCelda(j.tablero, fila, columna);
+				}
+				if(fila + 1 == filas_iniciales && columna + 1 == col){
+					filUlt = fila;
+					colUlt = columna;
+				}
+			}
+		}
+		crearTablero(j.tablero, fil, col, filas_iniciales, celdasUtiles, filUlt, colUlt);
+		actualizarEntorno(j, fil, col, filUlt, colUlt);
+		jugar(j, fila, columna, col, fil, filas_iniciales, maxReplicas, maxAyudas);
+	}
+}
+
+void terminar(string msg){
+	entornoMostrarMensajeFin(msg);
 	entornoTerminar();
 }

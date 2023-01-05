@@ -94,6 +94,30 @@ int obtenerNum (Tablero t, int fila, int col);
 
 /*
  * PRE: {t debe estar correctamente inicializada.}
+ * POST: {Devuelve el número de celdas útiles que hay en el tablero.}
+ * DESCRIPCIÓN:
+ * COMPL: O (1)
+ */
+int obtenerCeldasUtiles(Tablero t);
+
+/*
+ * PRE: {t debe estar correctamente inicializada.}
+ * POST: {Devuelve la posición de la última celda.}
+ * DESCRIPCIÓN:
+ * COMPL: O (1)
+ */
+void obtenerUltCelda(Tablero t, int &fila, int &col);
+
+/*
+ * PRE: {t debe estar correctamente inicializada.}
+ * POST: {Pone en el atributo celdas_utiles el número recibido como parámetro.}
+ * DESCRIPCIÓN:
+ * COMPL: O (1)
+ */
+void ponerCeldasUtiles(Tablero &t, int num);
+
+/*
+ * PRE: {t debe estar correctamente inicializada.}
  * POST:
  * DESCRIPCIÓN: Pone un valor en una celda concreta del tablero.
  * COMPL: O (1)

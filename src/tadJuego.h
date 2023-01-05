@@ -44,6 +44,14 @@ void jugar(tadJuego &j, int fila, int col, int numColumnas, int numFilas, int fi
  * DESCRIPCIÓN:
  * COMPL:
  */
+void funcionamientoReplicas(tadJuego &j);
+
+/*
+ * PRE: {}
+ * POST: {}
+ * DESCRIPCIÓN:
+ * COMPL:
+ */
 void funcionamientoEnter(tadJuego &j, int fila, int col);
 
 /*
@@ -52,6 +60,6 @@ void funcionamientoEnter(tadJuego &j, int fila, int col);
  * DESCRIPCIÓN: Termina el juego, mostrando un mensaje de despedida y cerrando el entorno gráfico.
  * COMPL:
  */
-void terminar();
+void terminar(string msg);
 
 #endif /* TADJUEGO_H_ */
