@@ -36,7 +36,7 @@ void iniciar();
  * DESCRIPCIÓN: Realiza la gestión general del juego (gestionar las teclas que se pulsen, actualizar el tablero y la pantalla, dar el juego por finalizado, etc.)
  * COMPL:
  */
-void jugar(tadJuego &j, int fila, int col, int numColumnas, int numFilas, int filasIniciales, int maxReplicas, int maxAyudas);
+void jugar(tadJuego &j, int numColumnas, int numFilas, int filasIniciales, int maxReplicas, int maxAyudas);
 
 /*
  * PRE: {}

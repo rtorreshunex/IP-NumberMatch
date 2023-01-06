@@ -34,7 +34,7 @@ struct Tablero {
  * números (con valores entre 1 y 9) generados aleatoriamente. El resto de las filas están vacías.
  * COMPL: O (n²)
  */
-void crearTablero (Tablero &t, int filas, int columnas, int filasIniciales,int celdasUtiles, int filUlt, int colUlt);
+void crearTablero(Tablero &t, int filas, int columnas, int filasIniciales, int &filUlt, int &colUlt, int m[MAX_FIL][MAX_COL]);
 
 /*
  * PRE: {t debe estar correctamente inicializada.}

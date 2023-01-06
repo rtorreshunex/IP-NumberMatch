@@ -9,12 +9,12 @@
 #include "tadJuego.h"
 using namespace std;
 
-void jugar(tadJuego &j, int fila, int col, int numColumnas, int numFilas, int filasIniciales, int maxReplicas, int maxAyudas){
+void jugar(tadJuego &j, int numColumnas, int numFilas, int filasIniciales, int maxReplicas, int maxAyudas){
 	bool salir = false; //bandera utilizada para finalizar el bucle
 	TipoTecla tecla;    //almacena la tecla pulsada por el usuario
 
-	fila = 0;
-	col  = 0;
+	int fila = 0;
+	int col  = 0;
 	entornoMarcarPosicion(fila,col);
 	entornoPonerPuntuacion (j.puntuacion,0);
 	entornoMostrarMensaje("Pulsa ESC para salir",1.5);
@@ -164,32 +164,13 @@ void iniciar(){
 	tadJuego j;
 	j.puntuacion = 0;
 	j.celdaSelec = false;
-	int celdasUtiles = 0;
 	int filUlt, colUlt;
 
 	if(entornoCargarConfiguracion(fil, col, filas_iniciales, maxReplicas, maxAyudas, deDonde, m)){
 		entornoIniciar(fil, col);
-
-		int fila, columna;
-		for ( fila = 0; fila < fil; fila++) {
-			for ( columna = 0; columna < col; columna++) {
-				if (fila < filas_iniciales){
-					ponerValorCeldaConc(j.tablero, m[fila][columna], fila, columna);
-					entornoActivarNumero(fila, columna, m[fila][columna]);
-					celdasUtiles++;
-				}else{
-					entornoPonerVacio(fila, columna);
-					vaciarCelda(j.tablero, fila, columna);
-				}
-				if(fila + 1 == filas_iniciales && columna + 1 == col){
-					filUlt = fila;
-					colUlt = columna;
-				}
-			}
-		}
-		crearTablero(j.tablero, fil, col, filas_iniciales, celdasUtiles, filUlt, colUlt);
+		crearTablero(j.tablero, fil, col, filas_iniciales, filUlt, colUlt, m);
 		actualizarEntorno(j, fil, col, filUlt, colUlt);
-		jugar(j, fila, columna, col, fil, filas_iniciales, maxReplicas, maxAyudas);
+		jugar(j, col, fil, filas_iniciales, maxReplicas, maxAyudas);
 	}
 }
 

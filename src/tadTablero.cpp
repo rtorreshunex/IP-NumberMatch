@@ -10,13 +10,25 @@
 #include "tadTablero.h"
 using namespace std;
 
-void crearTablero(Tablero &t, int filas, int columnas, int filasIniciales, int celdasUtiles, int filUlt, int colUlt) {
+void crearTablero(Tablero &t, int filas, int columnas, int filasIniciales, int &filUlt, int &colUlt, int m[MAX_FIL][MAX_COL]) {
 	t.n_filas = filas;
 	t.n_columnas = columnas;
 	t.filas_iniciales = filasIniciales;
-	t.celdas_utiles = celdasUtiles;
-	t.col_ult = colUlt;
-	t.fil_ult = filUlt;
+
+	for (int fila = 0; fila < filas; fila++) {
+		for (int columna = 0; columna < columnas; columna++) {
+			if (fila < t.filas_iniciales){
+				crearCelda(t.vTablero[fila][columna], m[fila][columna]);
+				t.celdas_utiles++;
+			} else crearCeldaVacia(t.vTablero[fila][columna]);
+			if(fila + 1 == t.filas_iniciales && columna + 1 == columnas){
+				t.fil_ult = fila;
+				t.col_ult = columna;
+			}
+		}
+	}
+	colUlt = t.col_ult;
+	filUlt = t.fil_ult;
 }
 
 void vaciarCelda(Tablero &t, int fila, int col) {
@@ -111,7 +123,7 @@ void replCeldNoBorr(Tablero &t){
 	// Replicar celdas útiles
 	for (int i = 0; i <= t.fil_ult; i++){
 		for (int j = 0; j <= t.col_ult; j++){
-			if(!estaBorrada(t, i, j)){
+			if(!esBorradaCelda(t.vTablero[i][j])){
 				crearCelda(t.vTablero[fil][col], obtenerNumCelda(t.vTablero[i][j]));
 				celdas_utiles++;
 				col++;
@@ -130,7 +142,7 @@ void replCeldNoBorr(Tablero &t){
 		t.fil_ult = fil;
 		t.col_ult = --col;
 	}
-	ponerCeldasUtiles(t, obtenerCeldasUtiles(t) + celdas_utiles);
+	t.celdas_utiles += celdas_utiles;
 
 }
 
