@@ -111,6 +111,25 @@ void funcionamientoReplicas(tadJuego &j){
 		terminar("Los datos no caben");
 }
 
+int filaBorrada(tadJuego &j, int fila){
+	int filas, columnas, filUlt, colUlt;
+	int puntuacion = 0;
+	devolverNumFilasYCol(j.tablero, filas, columnas);
+	if(estaBorradaFila(j.tablero, fila)){
+		borrarInfoFila(j.tablero, fila);
+		puntuacion += 10;
+		obtenerUltCelda(j.tablero, filUlt, colUlt);
+		actualizarEntorno(j, filas, columnas, filUlt, colUlt);
+	}
+	if(estaBorradaFila(j.tablero, j.fSelec)){
+		borrarInfoFila(j.tablero, j.fSelec);
+		puntuacion += 10;
+		obtenerUltCelda(j.tablero, filUlt, colUlt);
+		actualizarEntorno(j, filas, columnas, filUlt, colUlt);
+	}
+	return puntuacion;
+}
+
 void funcionamientoEnter(tadJuego &j, int fila, int col){
 
 	if(!estaVacia(j.tablero, fila, col) && !estaBorrada(j.tablero, fila, col) && !estaSeleccionada(j.tablero, fila, col)){
@@ -120,29 +139,20 @@ void funcionamientoEnter(tadJuego &j, int fila, int col){
 			j.fSelec = fila;
 			j.cSelec = col;
 			j.celdaSelec = true;
-		} else{
+		} else {
 			if(sonParejaCeldas(j.tablero, fila, col, j.fSelec, j.cSelec)){
 				// Borrar las 2 celdas
 				borrarCelda(j.tablero, fila, col);
 				entornoDesactivarNumero(fila, col, obtenerNum(j.tablero, fila, col));
 				borrarCelda(j.tablero, j.fSelec, j.cSelec);
 				entornoDesactivarNumero(j.fSelec, j.cSelec, obtenerNum(j.tablero, j.fSelec, j.cSelec));
-				// Actualizar puntuación
-				j.puntuacion += 1;
-				entornoPonerPuntuacion(j.puntuacion,1);
 				// Actualizar celdas útiles
 				ponerCeldasUtiles(j.tablero, obtenerCeldasUtiles(j.tablero) - 2);
 				// Borrar filas
-				if(estaBorradaFila(j.tablero, fila)){
-					borrarInfoFila(j.tablero, fila);
-					j.puntuacion += 10;
-					entornoPonerPuntuacion(j.puntuacion,10);
-				}
-				if(estaBorradaFila(j.tablero, j.fSelec)){
-					borrarInfoFila(j.tablero, j.fSelec);
-					j.puntuacion += 10;
-					entornoPonerPuntuacion(j.puntuacion,10);
-				}
+				int puntuacion = filaBorrada(j, fila);
+				// Actualizar puntuación
+				j.puntuacion += (puntuacion + 1);
+				entornoPonerPuntuacion(j.puntuacion, (puntuacion + 1));
 			}else
 				entornoPausa(0.5);
 			j.celdaSelec = false;
@@ -152,6 +162,7 @@ void funcionamientoEnter(tadJuego &j, int fila, int col){
 			entornoDeseleccionarPosicion (j.fSelec, j.cSelec);
 		}
 	}else{
+		j.celdaSelec = false;
 		deseleccionarCelda(j.tablero, fila, col);
 		entornoDeseleccionarPosicion (fila,col);
 	}

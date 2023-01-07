@@ -102,10 +102,18 @@ bool estaBorradaFila(Tablero t, int fila){
 }
 
 void borrarInfoFila(Tablero &t, int fila){
-	for (int i = 0; i< t.n_columnas; i++){
-		if(!estaBorrada(t,fila,i))
-			borrarNumCelda(t.vTablero[fila][i]);
+	for(int i = fila; i <= t.fil_ult; i++){
+		for(int j = 0; j < t.n_columnas; j++){
+			if(!((i + 1) > t.fil_ult)){
+				if(esVaciaCelda(t.vTablero[i + 1][j]))
+					crearCeldaVacia(t.vTablero[i][j]);
+				crearCelda(t.vTablero[i][j], obtenerNumCelda(t.vTablero[i + 1][j]));
+				if(esBorradaCelda(t.vTablero[i + 1][j]))
+					borrarNumCelda(t.vTablero[i][j]);
+			} else crearCeldaVacia(t.vTablero[i][j]);
+		}
 	}
+	t.fil_ult--;
 }
 
 void replCeldNoBorr(Tablero &t){
