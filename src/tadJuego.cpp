@@ -64,7 +64,7 @@ void jugar(tadJuego &j, int numColumnas, int numFilas, int filasIniciales, int m
 			if(maxReplicas > 0){
 				maxReplicas--;
 				funcionamientoReplicas(j);
-			} else entornoMostrarMensaje("No quedan más réplicas", 0.5);
+			} else terminar("Réplicas agotadas");
 			break;
 		case TF2:
 			if(maxAyudas > 0){
@@ -73,7 +73,7 @@ void jugar(tadJuego &j, int numColumnas, int numFilas, int filasIniciales, int m
 					entornoPonerVacio(i,i);
 					entornoPausa(0.5);
 				}
-			} else terminar("Réplicas agotadas");
+			} else entornoMostrarMensaje("No quedan más ayudas", 0.5);
 			break;
 		case TSalir:
 			salir = true;
@@ -148,6 +148,9 @@ void funcionamientoEnter(tadJuego &j, int fila, int col){
 				entornoDesactivarNumero(j.fSelec, j.cSelec, obtenerNum(j.tablero, j.fSelec, j.cSelec));
 				// Actualizar celdas útiles
 				ponerCeldasUtiles(j.tablero, obtenerCeldasUtiles(j.tablero) - 2);
+				//Comprobar celdas útiles
+				if(obtenerCeldasUtiles(j.tablero) <= 0)
+					terminar("Has Ganado!!!");
 				// Borrar filas
 				int puntuacion = filaBorrada(j, fila);
 				// Actualizar puntuación

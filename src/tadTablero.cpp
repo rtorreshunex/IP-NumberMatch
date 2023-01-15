@@ -130,16 +130,17 @@ void replCeldNoBorr(Tablero &t){
 	}
 	// Replicar celdas útiles
 	for (int i = 0; i <= t.fil_ult; i++){
-		for (int j = 0; j <= t.col_ult; j++){
-			if(!esBorradaCelda(t.vTablero[i][j])){
-				crearCelda(t.vTablero[fil][col], obtenerNumCelda(t.vTablero[i][j]));
-				celdas_utiles++;
-				col++;
-				if(col >= t.n_columnas){
-					col = 0;
-					fil++;
+		for (int j = 0; j < t.n_columnas; j++){
+			if(i != t.fil_ult || j <= t.col_ult)
+				if(!esBorradaCelda(t.vTablero[i][j])){
+					crearCelda(t.vTablero[fil][col], obtenerNumCelda(t.vTablero[i][j]));
+					celdas_utiles++;
+					col++;
+					if(col >= t.n_columnas){
+						col = 0;
+						fil++;
+					}
 				}
-			}
 		}
 	}
 	// Asignar la nueva última celda útil
