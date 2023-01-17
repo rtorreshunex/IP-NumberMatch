@@ -24,34 +24,50 @@ struct tadJuego {
 
 
 /*
- * PRE: {}
- * POST: {}
+ * PRE: {j debe estar correctamente inicializada}
+ * POST: {j se modifica después de ejecutar este módulo}
  * DESCRIPCIÓN: Inicia la estructura de datos del juego, según la configuración del fichero match.cnf
- * COMPL:
+ * COMPL: O (1)
  */
 void iniciar(tadJuego &j);
 
 /*
- * PRE: {}
- * POST: {}
+ * PRE: {j debe estar correctamente inicializada}
+ * POST: {j se modifica después de ejecutar este módulo}
  * DESCRIPCIÓN: Realiza la gestión general del juego (gestionar las teclas que se pulsen, actualizar el tablero y la pantalla, dar el juego por finalizado, etc.)
- * COMPL:
+ * COMPL: O (1)
  */
 void jugar(tadJuego &j);
 
 /*
- * PRE: {}
- * POST: {}
- * DESCRIPCIÓN:
- * COMPL:
+ * PRE: {j debe estar correctamente inicializada}
+ * POST: {j se modifica después de ejecutar este módulo}
+ * DESCRIPCIÓN: Actualiza el entorno del juego.
+ * COMPL: O (n²)
+ */
+void actualizarEntorno(tadJuego &j);
+
+/*
+ * PRE: {j debe estar correctamente inicializada}
+ * POST: {j se modifica después de ejecutar este módulo}
+ * DESCRIPCIÓN: Se encarga del funcionamiento a la hora de replicar las filas del juego.
+ * COMPL: O (1)
  */
 void funcionamientoReplicas(tadJuego &j);
 
 /*
- * PRE: {}
- * POST: {}
+ * PRE: {j debe estar correctamente inicializada}
+ * POST: {j se modifica después de ejecutar este módulo, devuelve la puntuación al borrarse una fila.}
  * DESCRIPCIÓN:
- * COMPL:
+ * COMPL: O (1)
+ */
+int filaBorrada(tadJuego &j, int fila);
+
+/*
+ * PRE: {j debe estar correctamente inicializada}
+ * POST: {j se modifica después de ejecutar este módulo}
+ * DESCRIPCIÓN: Se encarga del funcionamiento de la tecla enter a la hora de jugar
+ * COMPL: O (1)
  */
 void funcionamientoEnter(tadJuego &j, int fila, int col);
 
@@ -59,7 +75,7 @@ void funcionamientoEnter(tadJuego &j, int fila, int col);
  * PRE: {}
  * POST: {}
  * DESCRIPCIÓN: Termina el juego, mostrando un mensaje de despedida y cerrando el entorno gráfico.
- * COMPL:
+ * COMPL: O(1)
  */
 void terminar(string msg);
 

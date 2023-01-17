@@ -31,6 +31,25 @@ void crearTablero(Tablero &t, int filas, int columnas, int filasIniciales, int &
 	filUlt = t.fil_ult;
 }
 
+void crearTableroAleatorio(Tablero &t, int filas, int columnas, int filasIniciales, int celdasUtiles, int filUlt, int colUlt) {
+	t.n_filas = filas;
+	t.n_columnas = columnas;
+	t.filas_iniciales = filasIniciales;
+	t.celdas_utiles = celdasUtiles;
+	t.col_ult = colUlt;
+	t.fil_ult = filUlt;
+	for (int i = 0; i < filas; i++){
+			for (int j = 0; j < columnas; j++){
+				if(i<filasIniciales)
+					crearCelda(t.vTablero[i][j], rand() % 9 + 1);
+				else{
+					//crearCelda(t.vTablero[i][j], 0);
+					crearCeldaVacia(t.vTablero[i][j]);
+				}
+			}
+	}
+}
+
 void vaciarCelda(Tablero &t, int fila, int col) {
 	crearCeldaVacia(t.vTablero[fila][col]);
 }
@@ -93,7 +112,7 @@ bool estaSeleccionada(Tablero t, int fila, int col){
 bool estaBorradaFila(Tablero t, int fila){
 	bool borrada = true;
 
-	for(int i = 0; i < t.n_columnas; i++){
+	for(int i = 0; i < t.n_columnas && borrada; i++){
 		if(!estaBorrada(t, fila, i)){
 			borrada = false;
 		}

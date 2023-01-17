@@ -23,7 +23,7 @@ struct Celda {
  * PRE: {1 <= num <= 9; c debe estar correctamente inicializada.}
  * POST: {}
  * DESCRIPCIÓN: Crea una nueva celda que contiene un número
- * COMPL:
+ * COMPL: O (1)
  */
 void crearCelda (Celda &c,int num);
 
@@ -101,7 +101,7 @@ bool esSeleccionadaCelda(Celda c);
 bool sonPareja (Celda c1, Celda c2);
 
 /*
- * PRE:
+ * PRE: {c debe estar correctamente inicializada.}
  * POST:
  * DESCRIPCIÓN: Muestra la información de la celda
  * COMPL: O (1)

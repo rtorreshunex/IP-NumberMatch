@@ -29,12 +29,22 @@ struct Tablero {
 /*
  * PRE: {1 <= filas <= 12; 1 <= columnas <= 9; filasIniciales <= filas;
  * 		t debe estar correctamente inicializada}
- * POST:
+ * POST: {La estructura t se modifica, te devuelve por parámetro de entrada/salida la última fila ocupada y la última columna ocupada}
+ * DESCRIPCIÓN: Crea un tablero de dimensión filas * columnas, con un número de filas iniciales rellenos de números entre el 1 y 9.
+ * 				El resto de las filas están vacías.
+ * COMPL: O (n²)
+ */
+void crearTablero(Tablero &t, int filas, int columnas, int filasIniciales, int &filUlt, int &colUlt, int m[MAX_FIL][MAX_COL]);
+
+/*
+ * PRE: {1 <= filas <= 12; 1 <= columnas <= 9; filasIniciales <= filas;
+ * 		t debe estar correctamente inicializada}
+ * POST: {}
  * DESCRIPCIÓN: Crea un tablero de dimensión filas * columnas en el que las primeras filas (filasIniciales) contienen
  * números (con valores entre 1 y 9) generados aleatoriamente. El resto de las filas están vacías.
  * COMPL: O (n²)
  */
-void crearTablero(Tablero &t, int filas, int columnas, int filasIniciales, int &filUlt, int &colUlt, int m[MAX_FIL][MAX_COL]);
+void crearTableroAleatorio(Tablero &t, int filas, int columnas, int filasIniciales, int celdasUtiles, int filUlt, int colUlt);
 
 /*
  * PRE: {t debe estar correctamente inicializada.}
@@ -54,7 +64,7 @@ void devolverCoordenadasCeldaOcup (Tablero t, int &filas, int &columnas);
 
 /*
  * PRE: {t debe estar correctamente inicializada.}
- * POST:
+ * POST: {t se modifica después de vaciar la celda.}
  * DESCRIPCIÓN: Vacía la celda del tablero que ocupa la posición (fila, col).
  * COMPL: O (1)
  */
@@ -62,7 +72,7 @@ void vaciarCelda (Tablero &t, int fila, int col);
 
 /*
  * PRE: {t debe estar correctamente inicializada.}
- * POST:
+ * POST: {t se modifica después de borrar la celda.}
  * DESCRIPCIÓN: Marca como borrada la celda del tablero que ocupa la posición (fila, col).
  * COMPL: O (1)
  */
@@ -70,7 +80,7 @@ void borrarCelda (Tablero &t, int fila, int col);
 
 /*
  * PRE: {t debe estar correctamente inicializada.}
- * POST:
+ * POST: {t se modifica cada vez que se ejecuta este módulo}
  * DESCRIPCIÓN: Marca como seleccionada la celda del tablero que ocupa la posición (fila, col).
  * COMPL: O (1)
  */
@@ -78,7 +88,7 @@ void seleccionarCelda(Tablero &t, int fila, int col);
 
 /*
  * PRE: {t debe estar correctamente inicializada.}
- * POST:
+ * POST: {t se modifica cada vez que se ejecuta este módulo}
  * DESCRIPCIÓN: Marca como NO seleccionada la celda del tablero que ocupa la posición (fila, col).
  * COMPL: O (1)
  */
@@ -110,15 +120,15 @@ void obtenerUltCelda(Tablero t, int &fila, int &col);
 
 /*
  * PRE: {t debe estar correctamente inicializada.}
- * POST: {Pone en el atributo celdas_utiles el número recibido como parámetro.}
- * DESCRIPCIÓN:
+ * POST: {t se modifica después de ejecutar este módulo.}
+ * DESCRIPCIÓN: Pone en el atributo celdas_utiles el número recibido como parámetro.
  * COMPL: O (1)
  */
 void ponerCeldasUtiles(Tablero &t, int num);
 
 /*
  * PRE: {t debe estar correctamente inicializada.}
- * POST:
+ * POST: {t se modifica después de ejecutar este módulo}
  * DESCRIPCIÓN: Pone un valor en una celda concreta del tablero.
  * COMPL: O (1)
  */
@@ -161,7 +171,7 @@ bool estaBorradaFila(Tablero t, int fila);
 
 /*
  * PRE: {t debe estar correctamente inicializada.}
- * POST:
+ * POST: {t se modifica después de ejecutar este módulo}
  * DESCRIPCIÓN: Borra la información de una fila.
  * COMPL: O (n)
  */
@@ -169,9 +179,9 @@ void borrarInfoFila(Tablero &t, int fila);
 
 /*
  * PRE: {t debe estar correctamente inicializada.}
- * POST:
+ * POST: {t se modifica después de ejecutar este módulo}
  * DESCRIPCIÓN: Replica las celdas no borradas em el tablero
- * COMPL: O ()
+ * COMPL: O (n²)
  */
 void replCeldNoBorr(Tablero &t);
 
@@ -180,7 +190,7 @@ void replCeldNoBorr(Tablero &t);
  * PRE: {t debe estar correctamente inicializada.}
  * POST: {Devuelve true si las celdas son pareja y false si no lo son}
  * DESCRIPCIÓN:
- * COMPL: O ()
+ * COMPL: O (1)
  */
 bool sonParejaCeldas(Tablero t, int fila1, int col1, int fila2, int col2);
 
