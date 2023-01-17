@@ -9,10 +9,11 @@
 #include "tadJuego.h"
 using namespace std;
 
-void jugar(tadJuego &j, int numColumnas, int numFilas, int filasIniciales, int maxReplicas, int maxAyudas){
+void jugar(tadJuego &j){
 	bool salir = false; //bandera utilizada para finalizar el bucle
 	TipoTecla tecla;    //almacena la tecla pulsada por el usuario
 
+	int numFilas,numColumnas;
 	int fila = 0;
 	int col  = 0;
 	entornoMarcarPosicion(fila,col);
@@ -21,6 +22,7 @@ void jugar(tadJuego &j, int numColumnas, int numFilas, int filasIniciales, int m
 	entornoMostrarMensaje("Pulsa F1 para aumentar puntuacion",1.5);
 	entornoMostrarMensaje("Pulsa F2 para eliminar algunos números",1.5);
 	//el bucle permite al jugador desplazarse por el tablero de juego
+	devolverNumFilasYCol(j.tablero,numFilas,numColumnas);
 	while (!salir) {
 		tecla = entornoLeerTecla();
 		switch (tecla) {
@@ -61,19 +63,19 @@ void jugar(tadJuego &j, int numColumnas, int numFilas, int filasIniciales, int m
 			break;
 
 		case TF1:
-			if(maxReplicas > 0){
-				maxReplicas--;
+			if(j.maxReplicas > 0){
+				j.maxReplicas--;
 				funcionamientoReplicas(j);
 			} else terminar("Réplicas agotadas");
 			break;
 		case TF2:
-			if(maxAyudas > 0){
+		/*	if(maxAyudas > 0){
 				maxAyudas--;
 				for (int i = 0; i < filasIniciales; i++) {
 					entornoPonerVacio(i,i);
 					entornoPausa(0.5);
 				}
-			} else entornoMostrarMensaje("No quedan más ayudas", 0.5);
+			} else entornoMostrarMensaje("No quedan más ayudas", 0.5);*/
 			break;
 		case TSalir:
 			salir = true;
@@ -86,10 +88,14 @@ void jugar(tadJuego &j, int numColumnas, int numFilas, int filasIniciales, int m
 	terminar("Has abandonado");
 }
 
-void actualizarEntorno(tadJuego &j, int fil, int col, int fil_ult, int col_ult){
+void actualizarEntorno(tadJuego &j){
+	int fil,col,fil_ult,col_ult;
+	devolverNumFilasYCol(j.tablero,fil,col);
+	obtenerUltCelda(j.tablero,fil_ult,col_ult);
 	for ( int fila = 0; fila < fil; fila++) {
 		for ( int columna = 0; columna < col; columna++) {
 			if (fila < fil_ult || (fila == fil_ult && columna <= col_ult)){
+				entornoPonerVacio(fila, columna);
 				entornoActivarNumero(fila, columna, obtenerNum(j.tablero, fila, columna));
 				if(estaBorrada(j.tablero, fila, columna))
 					entornoDesactivarNumero(fila, columna, obtenerNum(j.tablero, fila, columna));
@@ -105,7 +111,7 @@ void funcionamientoReplicas(tadJuego &j){
 	replCeldNoBorr(j.tablero);
 	if(obtenerCeldasUtiles(j.tablero) <= (fil * col)){
 		obtenerUltCelda(j.tablero, fil_ult, col_ult);
-		actualizarEntorno(j, fil, col, fil_ult, col_ult);
+		actualizarEntorno(j);
 	}
 	else
 		terminar("Los datos no caben");
@@ -119,13 +125,13 @@ int filaBorrada(tadJuego &j, int fila){
 		borrarInfoFila(j.tablero, fila);
 		puntuacion += 10;
 		obtenerUltCelda(j.tablero, filUlt, colUlt);
-		actualizarEntorno(j, filas, columnas, filUlt, colUlt);
+		actualizarEntorno(j);
 	}
 	if(estaBorradaFila(j.tablero, j.fSelec)){
 		borrarInfoFila(j.tablero, j.fSelec);
 		puntuacion += 10;
 		obtenerUltCelda(j.tablero, filUlt, colUlt);
-		actualizarEntorno(j, filas, columnas, filUlt, colUlt);
+		actualizarEntorno(j);
 	}
 	return puntuacion;
 }
@@ -172,19 +178,22 @@ void funcionamientoEnter(tadJuego &j, int fila, int col){
 
 }
 
-void iniciar(){
-	int fil, col, filas_iniciales, maxReplicas, maxAyudas, deDonde;
+void iniciar(tadJuego &j){
+	int fil, col, filas_iniciales, maxAyudas, deDonde;
 	int m[MAX_FILAS][MAX_COLUMNAS];
-	tadJuego j;
 	j.puntuacion = 0;
 	j.celdaSelec = false;
 	int filUlt, colUlt;
 
-	if(entornoCargarConfiguracion(fil, col, filas_iniciales, maxReplicas, maxAyudas, deDonde, m)){
+	if(entornoCargarConfiguracion(fil, col, filas_iniciales, j.maxReplicas, maxAyudas, deDonde, m)){
 		entornoIniciar(fil, col);
-		crearTablero(j.tablero, fil, col, filas_iniciales, filUlt, colUlt, m);
-		actualizarEntorno(j, fil, col, filUlt, colUlt);
-		jugar(j, col, fil, filas_iniciales, maxReplicas, maxAyudas);
+		if (deDonde==0){
+			crearTablero(j.tablero, fil, col, filas_iniciales, filUlt, colUlt, m);}
+		else{
+			//crearTableroAleatorio(j.tablero, fil, col, filas_iniciales, filUlt, colUlt);}
+		}
+		actualizarEntorno(j);
+	//jugar(j);
 	}
 }
 

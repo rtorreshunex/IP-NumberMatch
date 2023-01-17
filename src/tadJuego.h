@@ -19,6 +19,7 @@ struct tadJuego {
 	bool celdaSelec;
 	int fSelec;
 	int cSelec;
+	int maxReplicas;
 };
 
 
@@ -28,7 +29,7 @@ struct tadJuego {
  * DESCRIPCIÓN: Inicia la estructura de datos del juego, según la configuración del fichero match.cnf
  * COMPL:
  */
-void iniciar();
+void iniciar(tadJuego &j);
 
 /*
  * PRE: {}
@@ -36,7 +37,7 @@ void iniciar();
  * DESCRIPCIÓN: Realiza la gestión general del juego (gestionar las teclas que se pulsen, actualizar el tablero y la pantalla, dar el juego por finalizado, etc.)
  * COMPL:
  */
-void jugar(tadJuego &j, int numColumnas, int numFilas, int filasIniciales, int maxReplicas, int maxAyudas);
+void jugar(tadJuego &j);
 
 /*
  * PRE: {}

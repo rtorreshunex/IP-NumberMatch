@@ -113,6 +113,8 @@ void ejemploEntorno() {
 }
 
 int main() {
-	iniciar();
+	tadJuego j;
+	iniciar(j);
+	jugar(j);
 	return 0;
 }
