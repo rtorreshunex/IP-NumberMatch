@@ -29,11 +29,10 @@ void crearTablero(Tablero &t, int filas, int columnas, int filasIniciales, int m
 	}
 }
 
-void crearTableroAleatorio(Tablero &t, int filas, int columnas, int filasIniciales, int celdasUtiles) {
+void crearTableroAleatorio(Tablero &t, int filas, int columnas, int filasIniciales) {
 	t.n_filas = filas;
 	t.n_columnas = columnas;
 	t.filas_iniciales = filasIniciales;
-	t.celdas_utiles = celdasUtiles;
 	for (int i = 0; i < t.n_filas; i++){
 		for (int j = 0; j < t.n_columnas; j++){
 			if(i < t.filas_iniciales){

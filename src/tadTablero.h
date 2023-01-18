@@ -44,7 +44,7 @@ void crearTablero(Tablero &t, int filas, int columnas, int filasIniciales, int m
  * números (con valores entre 1 y 9) generados aleatoriamente. El resto de las filas están vacías.
  * COMPL: O (n²)
  */
-void crearTableroAleatorio(Tablero &t, int filas, int columnas, int filasIniciales, int celdasUtiles, int filUlt, int colUlt);
+void crearTableroAleatorio(Tablero &t, int filas, int columnas, int filasIniciales);
 
 /*
  * PRE: {t debe estar correctamente inicializada.}

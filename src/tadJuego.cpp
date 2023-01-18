@@ -17,10 +17,7 @@ void jugar(tadJuego &j){
 	int fila = 0;
 	int col  = 0;
 	entornoMarcarPosicion(fila,col);
-	entornoPonerPuntuacion (j.puntuacion,0);
-	entornoMostrarMensaje("Pulsa ESC para salir",1.5);
-	entornoMostrarMensaje("Pulsa F1 para aumentar puntuacion",1.5);
-	entornoMostrarMensaje("Pulsa F2 para eliminar algunos números",1.5);
+	entornoPonerPuntuacion (j.puntuacion, 0);
 	//el bucle permite al jugador desplazarse por el tablero de juego
 	devolverNumFilasYCol(j.tablero,numFilas,numColumnas);
 	while (!salir) {
@@ -189,10 +186,9 @@ void iniciar(tadJuego &j){
 		if (deDonde==0){
 			crearTablero(j.tablero, fil, col, filas_iniciales, m);}
 		else{
-			//crearTableroAleatorio(j.tablero, fil, col, filas_iniciales, filUlt, colUlt);}
+			crearTableroAleatorio(j.tablero, fil, col, filas_iniciales);
 		}
 		actualizarEntorno(j);
-	//jugar(j);
 	}
 }
 
