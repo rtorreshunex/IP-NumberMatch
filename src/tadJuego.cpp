@@ -115,19 +115,17 @@ void funcionamientoReplicas(tadJuego &j){
 }
 
 int filaBorrada(tadJuego &j, int fila){
-	int filas, columnas, filUlt, colUlt;
+	int filas, columnas;
 	int puntuacion = 0;
 	devolverNumFilasYCol(j.tablero, filas, columnas);
 	if(estaBorradaFila(j.tablero, fila)){
 		borrarInfoFila(j.tablero, fila);
 		puntuacion += 10;
-		obtenerUltCelda(j.tablero, filUlt, colUlt);
 		actualizarEntorno(j);
 	}
-	if(estaBorradaFila(j.tablero, j.fSelec)){
+	if(fila != j.fSelec && estaBorradaFila(j.tablero, j.fSelec)){
 		borrarInfoFila(j.tablero, j.fSelec);
 		puntuacion += 10;
-		obtenerUltCelda(j.tablero, filUlt, colUlt);
 		actualizarEntorno(j);
 	}
 	return puntuacion;
