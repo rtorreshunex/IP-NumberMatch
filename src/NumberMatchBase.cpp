@@ -12,7 +12,7 @@
 using namespace std;
 
 
-void ejemploEntorno() {
+/*void ejemploEntorno() {
 	//variables para almacenar la información del fichero de configuración
 	int numFilas, numColumnas,filasIniciales, maxReplicas, maxAyudas, deDonde;
 	int m[MAX_FILAS][MAX_COLUMNAS];
@@ -110,7 +110,7 @@ void ejemploEntorno() {
 	entornoTerminar();
 	}//Fin de if
 
-}
+}*/
 
 int main() {
 	tadJuego j;

@@ -35,7 +35,7 @@ void iniciar(tadJuego &j);
  * PRE: {j debe estar correctamente inicializada}
  * POST: {j se modifica después de ejecutar este módulo}
  * DESCRIPCIÓN: Realiza la gestión general del juego (gestionar las teclas que se pulsen, actualizar el tablero y la pantalla, dar el juego por finalizado, etc.)
- * COMPL: O (1)
+ * COMPL: O (n)
  */
 void jugar(tadJuego &j);
 
