@@ -46,27 +46,22 @@ void pr_estaVacia();
 void pr_estaBorrada();
 
 /*
- * DESCRIPCIÓN:
+ * DESCRIPCIÓN: muestra si la celda de la posición [fil][col] está seleccionada o no.
  */
 void pr_estaSeleccionada();
 
 /*
- * DESCRIPCIÓN:
+ * DESCRIPCIÓN: muestra si la información de la fila está borrada y por ende, si la fila está borrada.
  */
 void pr_estaBorradaFila();
 
 /*
- * DESCRIPCIÓN:
+ * DESCRIPCIÓN: muestra si la información de 2 celdas diferentes hacen pareja o no.
  */
-void pr_borrarInfoFila();
+void pr_sonParejaCeldas();
 
 /*
- * DESCRIPCIÓN:
- */
-void pr_sonParejasCeldas();
-
-/*
- * DESCRIPCIÓN:
+ * DESCRIPCIÓN: engloba a las llamadas a los módulos de pruebas.
  */
 void pruebasTablero();
 

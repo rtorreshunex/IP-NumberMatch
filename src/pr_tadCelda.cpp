@@ -117,6 +117,28 @@ void pr_esBorradaCelda() {
 	cout << "Fin pruebas esBorradaCelda: " << endl;
 }
 
+void pr_esSeleccionadaCelda(){
+	cout << "Inicio pruebas esSelccionadaCelda: " << endl;
+	Celda c1, c2, c3;
+
+	crearCelda(c1, 5);
+	seleccionarCelda(c1);
+	if (esSeleccionadaCelda(c1) != true)
+		cout << "La celda c1 no está seleccionada." << endl;
+
+	crearCelda(c2, 8);
+	deseleccionarCelda(c2);
+	if (esSeleccionadaCelda(c2) != false)
+		cout << "La celda c2 está selccionada." << endl;
+
+	crearCelda(c3, 2);
+	seleccionarCelda(c3);
+	if (esSeleccionadaCelda(c3) != true)
+		cout << "La celda c3 no está seleccionada." << endl;
+
+	cout << "Fin pruebas esBorradaCelda: " << endl;
+}
+
 void pr_sonPareja() {
 	cout << "Inicio pruebas sonPareja: " << endl;
 	Celda c1, c2, c3,c4,c5,c6;
@@ -149,6 +171,7 @@ void pruebasCelda() {
 	pr_obtenerNumCelda();
 	pr_esVaciaCelda();
 	pr_esBorradaCelda();
+	pr_esSeleccionadaCelda();
 	pr_sonPareja();
 	cout << "Fin pruebas celda: "<<endl;
 }

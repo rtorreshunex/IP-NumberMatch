@@ -101,8 +101,6 @@ void pr_crearTableroAleatorio(){
 	int fil = 9;
 	int col = 5;
 	int filIni = 4;
-	int m[MAX_FIL][MAX_COL];
-	rellenarMatriz(m);
 	Tablero t;
 	crearTableroAleatorio(t, fil, col, filIni);
 
@@ -133,9 +131,8 @@ void pr_vaciarCelda() {
     int fil = 9;
     int col = 5;
     int filIni = 4;
-    int m [MAX_FIL][MAX_COL];
     Tablero t;
-    crearTablero(t, fil, col, filIni,m);
+    crearTableroAleatorio(t, fil, col, filIni);
 
     fil = 3;
     col = 0;
@@ -166,7 +163,7 @@ void pr_borrarCelda() {
     int col = 5;
     int filIni = 4;
     Tablero t;
-    //crearTablero(t, fil, col, filIni);
+    crearTableroAleatorio(t, fil, col, filIni);
 
     fil = 3;
     col = 0;
@@ -193,7 +190,7 @@ void pr_obtenerNum() {
     int col = 5;
     int filIni = 4;
     Tablero t;
-    //crearTablero(t, fil, col, filIni);
+    crearTableroAleatorio(t, fil, col, filIni);
 
     fil = 3;
     col = 0;
@@ -222,7 +219,7 @@ void pr_estaVacia() {
     int col = 5;
     int filIni = 4;
     Tablero t;
-    //crearTablero(t, fil, col, filIni);
+    crearTableroAleatorio(t, fil, col, filIni);
 
     fil = 3;
     col = 0;
@@ -248,7 +245,7 @@ void pr_estaBorrada() {
     int col = 5;
     int filIni = 4;
     Tablero t;
-   // crearTablero(t, fil, col, filIni);
+   crearTableroAleatorio(t, fil, col, filIni);
 
     fil = 3;
     col = 0;
@@ -269,28 +266,130 @@ void pr_estaBorrada() {
 }
 
 void pr_estaSeleccionada(){
+	cout << "Inicio pruebas estaSeleccionada" << endl;
+	int fil = 9;
+	int col = 5;
+	int filIni = 4;
+	int m [MAX_FIL][MAX_COL];
+	Tablero t;
+	crearTablero(t, fil, col, filIni,m);
 
+	fil = 3;
+	col = 0;
+	seleccionarCelda(t,fil,col);
+	if (estaSeleccionada(t,fil,col)!=true)
+		cout
+				<< "Celda [" + to_string(fil) + "][" + to_string(col)
+						+ "] no seleccionada" << endl;
+	fil = 7;
+	col = 2;
+	deseleccionarCelda(t,fil,col);
+	if (estaSeleccionada(t,fil,col)!=false)
+		cout
+				<< "Celda [" + to_string(fil) + "][" + to_string(col)
+						+ "] seleccionada" << endl;
+	fil = 5;
+	col = 1;
+	seleccionarCelda(t,fil,col);
+	if (estaSeleccionada(t,fil,col)!=true)
+		cout
+				<< "Celda [" + to_string(fil) + "][" + to_string(col)
+						+ "] no seleccionada" << endl;
+
+	cout << "Fin pruebas estaSeleccionada" << endl;
 }
 
 void pr_estaBorradaFila(){
+	cout << "Inicio pruebas estaBorradaFila" << endl;
+	int fil = 9;
+	int col = 5;
+	int filIni = 4;
+	int filaBor = 2;
+	Tablero t;
+	crearTableroAleatorio(t, fil, col, filIni);
 
+	fil = 3;
+	col = 0;
+	borrarInfoFila(t,filaBor);
+	if (estaBorradaFila(t, filaBor)!=true)
+		cout << "Fila no borrada"<< endl;
+
+	fil = 7;
+	col = 2;
+	filIni = 4;
+	filaBor = 4;
+	crearTableroAleatorio(t,fil,col,filIni);
+	borrarInfoFila(t,filaBor);
+	if (estaBorradaFila(t, filaBor)!=true)
+		cout << "Fila no borrada"<< endl;
+
+	fil = 5;
+	col = 1;
+	filIni = 3;
+	filaBor = 2;
+	crearTableroAleatorio (t,fil,col,filIni);
+	borrarInfoFila(t,filaBor);
+	if (estaBorradaFila(t, filaBor)!=true)
+		cout << "Fila no borrada"<< endl;
+
+	cout << "Fin pruebas estaBorradaFila" << endl;
 }
 
-void pr_borrarInfoFila(){
+void pr_sonParejaCeldas(){
+	cout << "Inicio pruebas sonParejaCeldas" << endl;
+	int fil = 9;
+	int col = 5;
+	int filIni = 4;
+	Tablero t;
+	crearTableroAleatorio(t, fil, col, filIni);
 
-}
+	crearCelda(t.vTablero[2][4],4);
+	crearCelda(t.vTablero[2][3],4);
+	if(sonParejaCeldas(t,2,4,2,3)!=true)
+		cout << "No hacen pareja" << endl;
 
-void pr_sonParejasCeldas(){
+	fil = 10;
+	col = 6;
+	filIni = 4;
+	crearTableroAleatorio(t,fil,col,filIni);
+	crearCelda(t.vTablero[0][5], 8);
+	crearCelda(t.vTablero[1][0], 2);
+	if (sonParejaCeldas(t, 0, 5, 1, 0) != true)
+		cout << "No hacen pareja" << endl;
 
+	fil = 8;
+	col = 6;
+	filIni = 5;
+	crearTableroAleatorio(t,fil,col,filIni);
+	crearCelda(t.vTablero[3][4], 3);
+	crearCelda(t.vTablero[4][4], 5);
+	if (sonParejaCeldas(t, 3, 4, 2, 3) != false)
+		cout << "No hacen pareja" << endl;
+
+	fil = 12;
+	col = 9;
+	filIni = 6;
+	crearTableroAleatorio(t,fil,col,filIni);
+	crearCelda(t.vTablero[4][2], 6);
+	crearCelda(t.vTablero[5][1], 7);
+	if (sonParejaCeldas(t, 5, 1, 2, 1) != false)
+		cout << "No hacen pareja" << endl;
+
+
+	cout << "Fin pruebas sonParejaCeldas" << endl;
 }
 
 void pruebasTablero() {
     cout << "Inicio pruebas Tablero" << endl;
     pr_crearTablero();
+    pr_crearTableroAleatorio();
     pr_vaciarCelda();
     pr_borrarCelda();
     pr_obtenerNum();
     pr_estaVacia();
     pr_estaBorrada();
+    pr_estaSeleccionada();
+    pr_estaBorradaFila();
+    pr_sonParejaCeldas();
     cout << "Fin pruebas Tablero" << endl;
 }

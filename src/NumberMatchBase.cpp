@@ -13,9 +13,9 @@
 using namespace std;
 
 int main() {
-	tadJuego j;
-	iniciar(j);
-	jugar(j);
+	//tadJuego j;
+	//iniciar(j);
+	//jugar(j);
 	pruebasTablero();
 	return 0;
 }

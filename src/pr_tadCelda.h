@@ -41,11 +41,17 @@ void pr_esVaciaCelda();
 void pr_esBorradaCelda();
 
 /*
+ * DESCRIPCIÓN: probamos los 3 métodos de selección o deselección de una celda
+ */
+void pr_esSeleccionadaCelda();
+/*
  * DESCRIPCIÓN: muestra si 2 celdas son pareja o no
  */
 void pr_sonPareja();
 
-
+/*
+ * DESCRIPCIÓN: engloba a las llamadas a los módulos de pruebas.
+ */
 void pruebasCelda();
 
 
