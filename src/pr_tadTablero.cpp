@@ -307,30 +307,30 @@ void pr_estaBorradaFila(){
 	int filaBor = 2;
 	Tablero t;
 	crearTableroAleatorio(t, fil, col, filIni);
-
-	fil = 3;
-	col = 0;
-	borrarInfoFila(t,filaBor);
-	if (estaBorradaFila(t, filaBor)!=true)
-		cout << "Fila no borrada"<< endl;
+	for(int i = 0; i < col; i++)
+		borrarCelda(t, filaBor, i);
+	if (!estaBorradaFila(t, filaBor))
+		cout << "Fila " + to_string(filaBor) + " no borrada"<< endl;
 
 	fil = 7;
 	col = 2;
 	filIni = 4;
-	filaBor = 4;
+	filaBor = 3;
 	crearTableroAleatorio(t,fil,col,filIni);
-	borrarInfoFila(t,filaBor);
-	if (estaBorradaFila(t, filaBor)!=true)
-		cout << "Fila no borrada"<< endl;
+	for(int i = 0; i < col; i++)
+		borrarCelda(t, filaBor, i);
+	if (!estaBorradaFila(t, filaBor))
+		cout << "Fila " + to_string(filaBor) + " no borrada"<< endl;
 
 	fil = 5;
 	col = 1;
 	filIni = 3;
 	filaBor = 2;
 	crearTableroAleatorio (t,fil,col,filIni);
-	borrarInfoFila(t,filaBor);
-	if (estaBorradaFila(t, filaBor)!=true)
-		cout << "Fila no borrada"<< endl;
+	for(int i = 0; i < col; i++)
+		borrarCelda(t, filaBor, i);
+	if (!estaBorradaFila(t, filaBor))
+		cout << "Fila " + to_string(filaBor) + " no borrada"<< endl;
 
 	cout << "Fin pruebas estaBorradaFila" << endl;
 }

@@ -9,6 +9,7 @@
 #include "entorno.h"
 #include "tadJuego.h"
 #include "pr_tadTablero.h"
+#include "pr_tadCelda.h"
 
 using namespace std;
 
@@ -17,5 +18,6 @@ int main() {
 	//iniciar(j);
 	//jugar(j);
 	pruebasTablero();
+	pruebasCelda();
 	return 0;
 }
