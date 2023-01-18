@@ -14,10 +14,10 @@
 using namespace std;
 
 int main() {
-	//tadJuego j;
-	//iniciar(j);
-	//jugar(j);
-	pruebasTablero();
+	tadJuego j;
+	iniciar(j);
+	jugar(j);
+	//pruebasTablero();
 	//pruebasCelda();
 	return 0;
 }
