@@ -7,12 +7,19 @@
 
 #include "pr_tadTablero.h"
 
+void rellenarMatriz(int m[MAX_FIL][MAX_COL]){
+  for (int i = 0; i < MAX_FIL; i++)
+    for (int j = 0; j < MAX_COL; j++)
+      m[i][j] = rand() % 9 + 1;
+}
+
 void pr_crearTablero() {
     cout << "Inicio pruebas crearTablero" << endl;
     int fil = 9;
     int col = 5;
     int filIni = 4;
     int m[MAX_FIL][MAX_COL];
+    rellenarMatriz(m);
     Tablero t;
     crearTablero(t, fil, col, filIni,m);
 
@@ -24,11 +31,16 @@ void pr_crearTablero() {
     if(t.filas_iniciales != filIni)
         cout << "Número de filas iniciales incorrecto" << endl;
 
-    // Contenido Tablero
+    // Celdas fuera de rango
     for(int i = filIni; i < fil; i++)
         for(int j = 0; j < col; j++)
-            if(obtenerNumCelda(t.vTablero[i][j]) > 0)
+            if(!estaVacia(t, i, j))
                 cout << "Número en celda [" + to_string(i) + "][" + to_string(j) + "] fuera de rango" << endl;
+
+    // Contenido tablero
+    for(int i = 0; i < fil; i++)
+    	for(int j = 0; j < col; j++)
+    		mostrarCelda(t.vTablero[i][j]);
 
 
     fil = 7;
@@ -44,13 +56,16 @@ void pr_crearTablero() {
 	if (t.filas_iniciales != filIni)
 		cout << "Número de filas iniciales incorrecto" << endl;
 
-	// Contenido Tablero
-	for (int i = filIni; i < fil; i++)
-		for (int j = 0; j < col; j++)
-			if (obtenerNumCelda(t.vTablero[i][j]) > 0)
-				cout
-						<< "Número en celda [" + to_string(i) + "]["
-								+ to_string(j) + "] fuera de rango" << endl;
+	// Celdas fuera de rango
+	for(int i = filIni; i < fil; i++)
+		for(int j = 0; j < col; j++)
+			if(!estaVacia(t, i, j))
+				cout << "Número en celda [" + to_string(i) + "][" + to_string(j) + "] fuera de rango" << endl;
+
+	// Contenido tablero
+	for(int i = 0; i < fil; i++)
+		for(int j = 0; j < col; j++)
+			mostrarCelda(t.vTablero[i][j]);
 
 
 	fil = 10;
@@ -67,23 +82,18 @@ void pr_crearTablero() {
 	if (t.filas_iniciales != filIni)
 		cout << "Número de filas iniciales incorrecto" << endl;
 
-	// Contenido Tablero
-	for (int i = filIni; i < fil; i++)
-		for (int j = 0; j < col; j++)
-			if (obtenerNumCelda(t.vTablero[i][j]) > 0)
-				cout
-						<< "Número en celda [" + to_string(i) + "]["
-								+ to_string(j) + "] fuera de rango" << endl;
+	// Celdas fuera de rango
+	for(int i = filIni; i < fil; i++)
+		for(int j = 0; j < col; j++)
+			if(!estaVacia(t, i, j))
+				cout << "Número en celda [" + to_string(i) + "][" + to_string(j) + "] fuera de rango" << endl;
 
-    //HACER 1 O 2 EJEMPLOS MÁS
+	// Contenido tablero
+	for(int i = 0; i < fil; i++)
+		for(int j = 0; j < col; j++)
+			mostrarCelda(t.vTablero[i][j]);
 
     cout << "Fin pruebas crearTablero" << endl;
-}
-
-void rellenarMatriz(int &m[MAX_FIL][MAX_COL]){
-  for (int i = 0; i < MAX_FIL; i++)
-    for (int j = 0; j < MAX_COL; j++)
-      m[i][j] = rand() % 9 + 1;
 }
 
 void pr_crearTableroAleatorio(){
@@ -104,13 +114,16 @@ void pr_crearTableroAleatorio(){
 	if (t.filas_iniciales != filIni)
 		cout << "Número de filas iniciales incorrecto" << endl;
 
-	// Contenido Tablero
-	for (int i = filIni; i < fil; i++)
-		for (int j = 0; j < col; j++)
-			if (obtenerNumCelda(t.vTablero[i][j]) > 0)
-				cout
-						<< "Número en celda [" + to_string(i) + "]["
-								+ to_string(j) + "] fuera de rango" << endl;
+	// Celdas fuera de rango
+	for(int i = filIni; i < fil; i++)
+		for(int j = 0; j < col; j++)
+			if(!estaVacia(t, i, j))
+				cout << "Número en celda [" + to_string(i) + "][" + to_string(j) + "] fuera de rango" << endl;
+
+	// Contenido tablero
+	for(int i = 0; i < fil; i++)
+		for(int j = 0; j < col; j++)
+			mostrarCelda(t.vTablero[i][j]);
 
 	cout << "Fin pruebas crearTableroAleatorio" << endl;
 }
@@ -273,7 +286,7 @@ void pr_sonParejasCeldas(){
 
 void pruebasTablero() {
     cout << "Inicio pruebas Tablero" << endl;
-  //  pr_crearTablero();
+    pr_crearTablero();
     pr_vaciarCelda();
     pr_borrarCelda();
     pr_obtenerNum();
