@@ -51,9 +51,14 @@ void pr_estaBorrada();
 void pr_estaSeleccionada();
 
 /*
- * DESCRIPCIÓN: muestra si la información de la fila está borrada y por ende, si la fila está borrada.
+ * DESCRIPCIÓN: muestra si la fila está borrada.
  */
 void pr_estaBorradaFila();
+
+/*
+ * DESCRIPCIÓN: muestra si la información de la fila está borrada.
+ */
+void pr_borrarInfoFila();
 
 /*
  * DESCRIPCIÓN: muestra si la información de 2 celdas diferentes hacen pareja o no.

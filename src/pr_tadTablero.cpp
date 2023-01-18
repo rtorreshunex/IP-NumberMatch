@@ -335,6 +335,36 @@ void pr_estaBorradaFila(){
 	cout << "Fin pruebas estaBorradaFila" << endl;
 }
 
+void pr_borrarInfoFila(){
+	cout << "Inicio pruebas borrarInfoFila" << endl;
+	int fil = 9;
+	int col = 5;
+	int filIni = 4;
+	Tablero t;
+	crearTableroAleatorio(t, fil, col, filIni);
+
+	// Prueba 1
+	int filaBor = 2;
+	int filUlt = t.fil_ult;
+	borrarInfoFila(t, filaBor);
+	if (filUlt == t.fil_ult)
+		cout << "Fila " + to_string(filaBor) + " no borrada" << endl;
+
+	filaBor = 3;
+	filUlt = t.fil_ult;
+	borrarInfoFila(t, filaBor);
+	if (filUlt == t.fil_ult)
+		cout << "Fila " + to_string(filaBor) + " no borrada" << endl;
+
+	filaBor = 1;
+	filUlt = t.fil_ult;
+	borrarInfoFila(t, filaBor);
+	if (filUlt == t.fil_ult)
+		cout << "Fila " + to_string(filaBor) + " no borrada" << endl;
+
+	cout << "Fin pruebas borrarInfoFila" << endl;
+}
+
 void pr_sonParejaCeldas(){
 	cout << "Inicio pruebas sonParejaCeldas" << endl;
 	int fil = 9;
@@ -390,6 +420,7 @@ void pruebasTablero() {
     pr_estaBorrada();
     pr_estaSeleccionada();
     pr_estaBorradaFila();
+    pr_borrarInfoFila();
     pr_sonParejaCeldas();
     cout << "Fin pruebas Tablero" << endl;
 }

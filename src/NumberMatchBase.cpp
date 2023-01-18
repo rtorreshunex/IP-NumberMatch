@@ -18,6 +18,6 @@ int main() {
 	//iniciar(j);
 	//jugar(j);
 	pruebasTablero();
-	pruebasCelda();
+	//pruebasCelda();
 	return 0;
 }
