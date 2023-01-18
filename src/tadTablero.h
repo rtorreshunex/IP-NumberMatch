@@ -34,7 +34,7 @@ struct Tablero {
  * 				El resto de las filas están vacías.
  * COMPL: O (n²)
  */
-void crearTablero(Tablero &t, int filas, int columnas, int filasIniciales, int &filUlt, int &colUlt, int m[MAX_FIL][MAX_COL]);
+void crearTablero(Tablero &t, int filas, int columnas, int filasIniciales, int m[MAX_FIL][MAX_COL]);
 
 /*
  * PRE: {1 <= filas <= 12; 1 <= columnas <= 9; filasIniciales <= filas;

@@ -10,43 +10,41 @@
 #include "tadTablero.h"
 using namespace std;
 
-void crearTablero(Tablero &t, int filas, int columnas, int filasIniciales, int &filUlt, int &colUlt, int m[MAX_FIL][MAX_COL]) {
+void crearTablero(Tablero &t, int filas, int columnas, int filasIniciales, int m[MAX_FIL][MAX_COL]) {
 	t.n_filas = filas;
 	t.n_columnas = columnas;
 	t.filas_iniciales = filasIniciales;
 
-	for (int fila = 0; fila < filas; fila++) {
-		for (int columna = 0; columna < columnas; columna++) {
+	for (int fila = 0; fila < t.n_filas; fila++) {
+		for (int columna = 0; columna < t.n_columnas; columna++) {
 			if (fila < t.filas_iniciales){
 				crearCelda(t.vTablero[fila][columna], m[fila][columna]);
 				t.celdas_utiles++;
 			} else crearCeldaVacia(t.vTablero[fila][columna]);
-			if(fila + 1 == t.filas_iniciales && columna + 1 == columnas){
+			if(fila + 1 == t.filas_iniciales && columna + 1 == t.n_columnas){
 				t.fil_ult = fila;
 				t.col_ult = columna;
 			}
 		}
 	}
-	colUlt = t.col_ult;
-	filUlt = t.fil_ult;
 }
 
-void crearTableroAleatorio(Tablero &t, int filas, int columnas, int filasIniciales, int celdasUtiles, int filUlt, int colUlt) {
+void crearTableroAleatorio(Tablero &t, int filas, int columnas, int filasIniciales, int celdasUtiles) {
 	t.n_filas = filas;
 	t.n_columnas = columnas;
 	t.filas_iniciales = filasIniciales;
 	t.celdas_utiles = celdasUtiles;
-	t.col_ult = colUlt;
-	t.fil_ult = filUlt;
-	for (int i = 0; i < filas; i++){
-			for (int j = 0; j < columnas; j++){
-				if(i<filasIniciales)
-					crearCelda(t.vTablero[i][j], rand() % 9 + 1);
-				else{
-					//crearCelda(t.vTablero[i][j], 0);
-					crearCeldaVacia(t.vTablero[i][j]);
-				}
+	for (int i = 0; i < t.n_filas; i++){
+		for (int j = 0; j < t.n_columnas; j++){
+			if(i < t.filas_iniciales){
+				crearCelda(t.vTablero[i][j], rand() % 9 + 1);
+				t.celdas_utiles++;
+			} else crearCeldaVacia(t.vTablero[i][j]);
+			if(i + 1 == t.filas_iniciales && j + 1 == t.n_columnas){
+				t.fil_ult = i;
+				t.col_ult = j;
 			}
+		}
 	}
 }
 

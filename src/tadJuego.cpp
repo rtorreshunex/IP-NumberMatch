@@ -183,12 +183,11 @@ void iniciar(tadJuego &j){
 	int m[MAX_FILAS][MAX_COLUMNAS];
 	j.puntuacion = 0;
 	j.celdaSelec = false;
-	int filUlt, colUlt;
 
 	if(entornoCargarConfiguracion(fil, col, filas_iniciales, j.maxReplicas, maxAyudas, deDonde, m)){
 		entornoIniciar(fil, col);
 		if (deDonde==0){
-			crearTablero(j.tablero, fil, col, filas_iniciales, filUlt, colUlt, m);}
+			crearTablero(j.tablero, fil, col, filas_iniciales, m);}
 		else{
 			//crearTableroAleatorio(j.tablero, fil, col, filas_iniciales, filUlt, colUlt);}
 		}
