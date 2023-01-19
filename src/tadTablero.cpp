@@ -183,3 +183,55 @@ bool sonParejaCeldas(Tablero t, int fila1, int col1, int fila2, int col2){
 
 }
 
+bool sonParejaSeparadas(Tablero t, int fila1, int col1, int fila2, int col2){
+
+	bool pareja = false;
+	bool horizontal = true;
+	bool vertical = true;
+	bool diagonal = true;
+	int aux;
+
+	// Ordenar celdas
+	if((fila1 > fila2) || (fila1 == fila2 && col1 > col2)){
+		aux = fila1;
+		fila1 = fila2;
+		fila2 = aux;
+		aux = col1;
+		col1 = col2;
+		col2 = aux;
+	}
+
+	// Celdas en horizontal
+	for(int i = fila1; i <= fila2 && horizontal; i++)
+		for(int j = 0; j < t.n_columnas; j++){
+			if(i == fila1 && j <= col1)
+				if((col1 + 1) < t.n_columnas)
+					j = col1 + 1;
+				else {
+					i++;
+					j = 0;
+				}
+			if(!estaBorrada(t, i, j) && (i != fila2 || j < col2))
+				horizontal = false;
+		}
+
+	// Celdas en vertical
+	if(col1 == col2){
+		for(int i = fila1 + 1; i < fila2; i++)
+			if(!estaBorrada(t, i, col1))
+				vertical = false;
+	} else vertical = false;
+
+	// Celdas en diagonal
+	if((col1 + fila2 == col2 || col1 - fila2 == col2)){
+		for(int i = fila1 + 1; i < fila2; i++)
+			if((col1 + fila2 == col2 && !estaBorrada(t, i, col1 + i)) || (col1 - fila2 == col2 && !estaBorrada(t, i, col1 - i)))
+				diagonal = false;
+	} else diagonal = false;
+
+	if(horizontal || vertical || diagonal)
+		pareja = sonPareja(t.vTablero[fila1][col1], t.vTablero[fila2][col2]);
+	return pareja;
+
+}
+

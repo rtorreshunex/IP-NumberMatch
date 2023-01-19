@@ -141,7 +141,11 @@ void funcionamientoEnter(tadJuego &j, int fila, int col){
 			j.cSelec = col;
 			j.celdaSelec = true;
 		} else {
-			if(sonParejaCeldas(j.tablero, fila, col, j.fSelec, j.cSelec)){
+			if(sonParejaCeldas(j.tablero, fila, col, j.fSelec, j.cSelec) || sonParejaSeparadas(j.tablero, fila, col, j.fSelec, j.cSelec)){
+				int puntos;
+				if(sonParejaCeldas(j.tablero, fila, col, j.fSelec, j.cSelec))
+					puntos = 1;
+				else puntos = 4;
 				// Borrar las 2 celdas
 				borrarCelda(j.tablero, fila, col);
 				entornoDesactivarNumero(fila, col, obtenerNum(j.tablero, fila, col));
@@ -155,8 +159,8 @@ void funcionamientoEnter(tadJuego &j, int fila, int col){
 				// Borrar filas
 				int puntuacion = filaBorrada(j, fila);
 				// Actualizar puntuación
-				j.puntuacion += (puntuacion + 1);
-				entornoPonerPuntuacion(j.puntuacion, (puntuacion + 1));
+				j.puntuacion += (puntuacion + puntos);
+				entornoPonerPuntuacion(j.puntuacion, (puntuacion + puntos));
 			}else
 				entornoPausa(0.5);
 			j.celdaSelec = false;

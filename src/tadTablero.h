@@ -185,7 +185,6 @@ void borrarInfoFila(Tablero &t, int fila);
  */
 void replCeldNoBorr(Tablero &t);
 
-
 /*
  * PRE: {t debe estar correctamente inicializada.}
  * POST: {Devuelve true si las celdas son pareja y false si no lo son}
@@ -193,6 +192,14 @@ void replCeldNoBorr(Tablero &t);
  * COMPL: O (1)
  */
 bool sonParejaCeldas(Tablero t, int fila1, int col1, int fila2, int col2);
+
+/*
+ * PRE: {t debe estar correctamente inicializada.}
+ * POST: {Devuelve true si las celdas son pareja y false si no lo son}
+ * DESCRIPCIÓN:
+ * COMPL: O (1)
+ */
+bool sonParejaSeparadas(Tablero t, int fila1, int col1, int fila2, int col2);
 
 
 #endif /* TADTABLERO_H_ */
