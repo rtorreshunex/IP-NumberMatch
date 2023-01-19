@@ -66,13 +66,7 @@ void jugar(tadJuego &j){
 			} else terminar("Réplicas agotadas");
 			break;
 		case TF2:
-		/*	if(maxAyudas > 0){
-				maxAyudas--;
-				for (int i = 0; i < filasIniciales; i++) {
-					entornoPonerVacio(i,i);
-					entornoPausa(0.5);
-				}
-			} else entornoMostrarMensaje("No quedan más ayudas", 0.5);*/
+			funcionamientoAyudas(j);
 			break;
 		case TSalir:
 			salir = true;
@@ -83,6 +77,13 @@ void jugar(tadJuego &j){
 		} //Fin de switch
 	}//Fin de while
 	terminar("Has abandonado");
+}
+
+void funcionamientoAyudas(tadJuego j){
+	int fila1, col1, fila2, col2;
+	if(encontrarParejas(j.tablero, fila1, col1, fila2, col2))
+		entornoAyuda(fila1, col1, fila2, col2, 0.5);
+	else entornoMostrarMensaje("No se han encontrado parejas", 0.5);
 }
 
 void actualizarEntorno(tadJuego &j){

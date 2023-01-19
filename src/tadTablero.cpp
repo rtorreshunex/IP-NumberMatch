@@ -235,3 +235,30 @@ bool sonParejaSeparadas(Tablero t, int fila1, int col1, int fila2, int col2){
 
 }
 
+bool encontrarParejas(Tablero t, int &fila1, int &col1, int &fila2, int &col2){
+	bool pareja = false;
+	int celdasBuscadas = 0;
+	while(celdasBuscadas < t.celdas_utiles && !pareja){
+		bool primeraCelda = false;
+		int celdasSaltadas = 0;
+		for(int i = 0; i <= t.fil_ult && !pareja; i++)
+			for(int j = 0; j < t.n_columnas; j++){
+				// Encontrar pareja
+				if((primeraCelda && celdasSaltadas >= celdasBuscadas) && (sonParejaCeldas(t, fila1, col1, i, j) || sonParejaSeparadas(t, fila1, col1, i, j))){
+					fila2 = i;
+					col2 = j;
+					pareja = true;
+				}
+				// Conseguir primera celda útil
+				if(!estaVacia(t, i, j) && !estaBorrada(t, i, j) && (!primeraCelda || celdasSaltadas <= celdasBuscadas)){
+					fila1 = i;
+					col1 = j;
+					primeraCelda = true;
+					celdasSaltadas++;
+				}
+			}
+		celdasBuscadas++;
+	}
+	return pareja;
+}
+
